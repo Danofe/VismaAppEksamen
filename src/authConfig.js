@@ -2,7 +2,7 @@ export const msalConfig = {
   auth: {
     clientId: "63ff6245-38e3-4eba-82ee-35504d8f0983",
     authority: "https://login.microsoftonline.com/common",
-    redirectUri: "https://visma.herokuapp.com/auth",
+    redirectUri: "https://visma.herokuapp.com/",
   },
   cache: {
     cacheLocation: "sessionStorage",
