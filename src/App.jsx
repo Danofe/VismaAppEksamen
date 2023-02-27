@@ -32,8 +32,10 @@ function App({ msalInstance }) {
             <Route path="/" element={""} />
             <Route path="/Kalender" element={""} />
             <Route path="/Profil" element={""} />
+            <Route path="/logout" element={""} />
             <Route path="*" element={<h1>404</h1>} />
           </Routes>
+          <LoginPage />
         </UnauthenticatedTemplate>
       </BrowserRouter>
     </MsalProvider>
