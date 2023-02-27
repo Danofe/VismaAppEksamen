@@ -23,6 +23,7 @@ function App({ msalInstance }) {
             <Route path="/Kalender" element={<Kalender />} />
             <Route path="/Profil" element={<Profil />} />
             <Route path="*" element={<h1>404</h1>} />
+            <Route path="/logout" element={""} />
           </Routes>
           <Footer />
         </AuthenticatedTemplate>
