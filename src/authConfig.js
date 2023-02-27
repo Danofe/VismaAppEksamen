@@ -1,4 +1,3 @@
-require("dotenv").config();
 export const msalConfig = {
   auth: {
     clientId: process.env.REACT_APP_AZURE_TENANT_ID,
