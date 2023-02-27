@@ -1,9 +1,11 @@
+require("dotenv").config();
+
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCZTTV_0zmetjc9MDAusZkkv_WmK9KEz8E",
-  authDomain: "vismayo-cfb15.firebaseapp.com",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   databaseURL:
     "https://vismayo-cfb15-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "vismayo-cfb15",

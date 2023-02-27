@@ -1,6 +1,7 @@
+require("dotenv").config();
 export const msalConfig = {
   auth: {
-    clientId: "63ff6245-38e3-4eba-82ee-35504d8f0983",
+    clientId: process.env.REACT_APP_AZURE_TENANT_ID,
     authority: "https://login.microsoftonline.com/common",
     redirectUri: "https://visma.herokuapp.com/",
   },
