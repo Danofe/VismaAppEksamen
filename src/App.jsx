@@ -29,9 +29,9 @@ function App({ msalInstance }) {
         <UnauthenticatedTemplate>
           <Routes>
             <Route path="/auth" element={""} />
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/Kalender" element={<LoginPage />} />
-            <Route path="/Profil" element={<LoginPage />} />
+            <Route path="/" element={""} />
+            <Route path="/Kalender" element={""} />
+            <Route path="/Profil" element={""} />
             <Route path="*" element={<h1>404</h1>} />
           </Routes>
         </UnauthenticatedTemplate>
