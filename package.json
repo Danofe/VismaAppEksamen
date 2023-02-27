@@ -17,15 +17,18 @@
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "remixicon": "^2.5.0",
+    "serve": "^14.2.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwind-typewriter": "^1.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node index.js",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
