@@ -41,7 +41,7 @@ module.exports = {
           pausebeetween: 0,
         },
         profil: {
-          words: ["PROFIL "],
+          words: ["VERIFY APP "],
           repeat: 0,
           eraseSpeed: 0.0,
           caretWidth: 0,

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { PublicClientApplication, EventType } from "@azure/msal-browser";
@@ -13,10 +13,10 @@ csa.addEventCallback((event) => {
   }
 });
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <App msalInstance={csa} />
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
-// Alt er skrevet av: Daniel
+

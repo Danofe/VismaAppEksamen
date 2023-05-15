@@ -13,7 +13,7 @@ function Arkiv() {
     setArkiv(!arkiv);
 
     const endpoint =
-      "https://graph.microsoft.com/v1.0/me/events?$select=subject,body,bodyPreview,organizer,attendees,start,end,location";
+      "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=2023-02-24T10:00:02.012Z&enddatetime=2023-03-03T10:00:02.012Z";
 
     const accessToken = await instance.acquireTokenSilent({
       scopes: ["https://graph.microsoft.com/.default"],

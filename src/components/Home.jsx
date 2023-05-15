@@ -28,7 +28,7 @@ function Home() {
             </div>
           </div>
         </Link>
-        <Link to="/Profil">
+        <Link to="/verify-application">
           <div className=" h-80 w-96 bg-home-100 opacity-70 rounded-xl  border-gray-500 cursor-pointer hover:scale-110 duration-300 hover:shadow-lg  overflow-hidden group">
             <div className="flex justify-center pt-10 opacity-50 hover:opacity-100 duration-700 hover:pt-2">
               <svg
