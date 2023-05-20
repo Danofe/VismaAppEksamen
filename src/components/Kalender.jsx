@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useMsal } from "@azure/msal-react";
-import { addDoc } from "firebase/firestore";
-import { dbcol } from "../firebase/fireConfig";
+import { addDoc, getDoc } from "firebase/firestore";
+import { dbKalender, dbConfig} from "../firebase/fireConfig";
 
 function Kalender() {
   const { instance, accounts } = useMsal();
@@ -27,13 +27,15 @@ function Kalender() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    addDoc(dbcol, {
-      title: formData.title,
-      startTime: formData.startTime,
-      endTime: formData.endTime,
-      location: formData.location,
-      application: formData.application,
-      recipient: formData.recipient,
+    addDoc(dbKalender, {
+      Tittel: formData.title,
+      Fra: formData.startTime,
+      Til: formData.endTime,
+      Sted: formData.location,
+      Mottaker: formData.recipient,
+      Status: "venter",
+      //Config: hente config
+      //Bruker: hente bruker
     });
 
     const accessToken = await instance.acquireTokenSilent({
