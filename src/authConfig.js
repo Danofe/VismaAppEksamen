@@ -28,6 +28,7 @@ export const loginRequest = {
     "profile",
     "Calendars.ReadWrite",
     "Contacts.Read",
+    "Directory.ReadWrite.All",
   ],
 };
 
