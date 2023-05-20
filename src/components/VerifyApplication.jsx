@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../authContext";
+import { dbConfig} from "../firebase/fireConfig";
+import { addDoc } from "firebase/firestore";
 //Skrevet av Sindre
 //State hooks for form inputs og en for error meldinger
 const VerifyApplication = () => {
@@ -10,10 +12,19 @@ const VerifyApplication = () => {
   const [clientSecret, setClientSecret] = useState("");
   const { updateAuthConfig } = useAuthContext();
   const [errorMessage, setErrorMessage] = useState("");
+  
 
   //submit handler for formen
   const handleSubmit = async (e) => {
     e.preventDefault();
+    addDoc(dbConfig, {
+      Name: name,
+      ApplicationID: applicationId,
+      Clientsecret: clientSecret,
+      TenantID: tenantId,
+    });
+
+    
 
     // sjekker om noen felter er tomme
     if (!name || !tenantId || !clientSecret || !applicationId) {

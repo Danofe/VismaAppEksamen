@@ -3,6 +3,8 @@ import VerifyApplication from "./components/VerifyApplication";
 import Home from "./components/Home";
 import Profil from "./components/Profil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Register from "./components/LoginRegister/Registrer";
+import LoginFB from "./components/LoginRegister/LoginFB";
 import {
   MsalProvider,
   AuthenticatedTemplate,
@@ -21,6 +23,8 @@ function App({ msalInstance }) {
           <AuthenticatedTemplate>
             <Navbar />
             <Routes>
+            <Route path="/Registrer" element={<Register/>}/>
+              <Route path="/LoginFB" element={<LoginFB/>}/>
               <Route path="/auth" element={""} />
               <Route path="/" element={<Home />} />
               <Route path="/Kalender" element={<Kalender />} />

@@ -1,19 +1,21 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection } from "firebase/firestore";
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCZTTV_0zmetjc9MDAusZkkv_WmK9KEz8E",
-  authDomain: "vismayo-cfb15.firebaseapp.com",
-  databaseURL:
-    "https://vismayo-cfb15-default-rtdb.europe-west1.firebasedatabase.app/",
-  projectId: "vismayo-cfb15",
-  storageBucket: "vismayo-cfb15.appspot.com",
-  messagingSenderId: "460034540860",
-  appId: "1:460034540860:web:1625f50b547f5f97e40a39",
-  measurementId: "G-9TJ5J7LX11",
+  apiKey: "AIzaSyCPDnaH0H3zr1WOP6mtTH21DoLE_8__7PI",
+  authDomain: "kalendervisma.firebaseapp.com",
+  projectId: "kalendervisma",
+  storageBucket: "kalendervisma.appspot.com",
+  messagingSenderId: "446057597972",
+  appId: "1:446057597972:web:c1a4ad6b013cb3acc7eb01",
+  measurementId: "G-E4LFYJWHXZ",
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 const db = getFirestore();
-export const dbcol = collection(db, "KalenderTest");
-//Skrevet av: Oskar
+export const dbKalender = collection(db, "Kalender");
+export const dbConfig = collection(db,"Config");
+export const dbTest = collection(db,"Test");
+export const autentisering = getAuth(app);
+//Skrevet av: Oscar
