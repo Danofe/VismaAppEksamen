@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { autentisering } from "../../firebase/fireConfig";
-import "./LoginFB.css"
+//import "./LoginFB.css"
 
 function LoginFB() {
 

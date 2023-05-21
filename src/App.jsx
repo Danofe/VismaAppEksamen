@@ -20,12 +20,6 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function App({ msalInstance }) {
 
-  useEffect(() => {
-    onAuthStateChanged(autentisering, (user) => {
-      setCurrentUser(user)
-     })
-  }, [])
-
   return (
     <MsalProvider instance={msalInstance}>
       <AuthProvider> {/* "wrapper" hele appen med AppContextProvider */}
