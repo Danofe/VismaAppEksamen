@@ -10,4 +10,5 @@ function LoginPage() {
 }
 
 export default LoginPage;
-// Alt er skrevet av: Daniel
+
+

@@ -37,28 +37,45 @@ function Profil() {
   }, [instance]);
 
   return (
-    <div className=" pt-28">
-      <div className="flex justify-center items-center h-full">
-        <div className="flex flex-col items-center bg-home-100 w-3/5 rounded-md shadow-md">
-          <div className="text-4xl font-bold text-white pt-10"></div>
-          <div className="text-xl font-bold p-5 text-white">
-            Navn: {brukerNavn}
-          </div>
-          <div className="w-full px-4 flex justify-center">
-            <div className="absolute -m-44">
-              <img
-                src={`${ProfilBilde}`}
-                alt={`${brukerNavn}`}
-                className="shadow-md rounded-full h-auto w-32"
-              />
+      <div className="p-13">
+        <div className="p-8 bg-white mt-40">
+          <div className="grid grid-cols-1 md:grid-cols-3">
+            <div className="grid grid-cols-3 text-center order-last md:order-first mt-25 md:mt-0">
+            </div>
+            <div className="relative">
+              <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-[-10px] -mt-24 flex items-center justify-center text-gray-600">
+
+
+                <div className="absolute -m-44">
+                  <img
+                      src={`${ProfilBilde}`}
+
+                      className="shadow-md rounded-full h-auto w-40"
+                  />
+                </div>
+
+
+              </div>
             </div>
           </div>
+          <div className="mt-[150px] text-center border-b pb-12">
+            <h1 className="text-4xl font-medium text-gray-700 "></h1>
+            <img
+                alt={`${brukerNavn}`}
+                className="text-4xl font-medium text-gray-700"
+            />
+            <p className=" text-gray-600 mt-3">Bruker ID</p>
+            <p className="mt-8 text-gray-500">Student / Mail</p>
+            <p className="mt-2 text-gray-500">Universitetet i Sør-Øst Norge</p>
+          </div>
+          <div className="mt-12 flex flex-col justify-center">
+            <p className="text-gray-600 text-center ">Tilleggsinformasjon</p>
+          </div>
         </div>
-      </div>
-      ;
     </div>
   );
 }
 
+
+
 export default Profil;
-// Alt er skrevet av: Daniel
