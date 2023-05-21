@@ -2,24 +2,43 @@ import { React, useState } from "react";
 import axios from "axios";
 import { useMsal } from "@azure/msal-react";
 import dateFormat from "dateformat";
+import { getDocs } from "firebase/firestore";
+import { dbKalender } from "../../firebase/fireConfig";
+import { useAuthValue } from "../LoginRegister/brukerContext";
+
 
 function Arkiv() {
   const [arkiv, setArkiv] = useState(false);
   const [data, setData] = useState([]);
 
   const { instance } = useMsal();
-
+  let kalenderKø = []
+      
+  
   const hentData = async () => {
+
     setArkiv(!arkiv);
 
-    const endpoint =
+    getDocs(dbKalender)
+    .then((snapshot) => {
+      
+      snapshot.docs.forEach((doc) => {
+        kalenderKø.push({...doc.data()})
+      })
+      console.log(kalenderKø)
+    })
+    setData(kalenderKø)
+
+    /*const endpoint =
       "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=2023-02-24T10:00:02.012Z&enddatetime=2023-03-03T10:00:02.012Z";
 
     const accessToken = await instance.acquireTokenSilent({
       scopes: ["https://graph.microsoft.com/.default"],
     });
+    */
 
-    const req = await axios
+    /*
+      const req = await axios
       .get(endpoint, {
         headers: {
           Authorization: `Bearer ${accessToken.accessToken}`,
@@ -33,6 +52,7 @@ function Arkiv() {
           setData(res.data.value);
         }
       });
+      */
   };
 
   return (
@@ -75,19 +95,16 @@ function Arkiv() {
               >
                 <div className="flex pl-1 ">
                   <ul className="list-none text-base text-white opacity-70 hover:opacity-100 duration-200 font-semibold">
-                    <li>Subject: {item.subject}</li>
-                    <li>Location: {item.location.displayName}</li>
+                  <li>Subject: {item.Tittel}</li>
+                    <li>Location: {item.Sted}</li>
                     <li>
                       {dateFormat(
-                        item.start.dateTime,
+                        item.startTime,
                         "dddd, mmmm dS, yyyy, h:MM TT"
                       )}
                     </li>
                     <li>
-                      {dateFormat(
-                        item.end.dateTime,
-                        "dddd, mmmm dS, yyyy, h:MM TT"
-                      )}
+                      {dateFormat(item.endTime, "dddd, mmmm dS, yyyy, h:MM TT")}
                     </li>
                   </ul>
                 </div>

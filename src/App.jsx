@@ -14,11 +14,22 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LoginPage from "./components/LoginPage/LoginPage";
 import { AuthProvider } from "./authContext";
+import { useAuthValue } from "./components/LoginRegister/brukerContext";
+import { autentisering } from "./firebase/fireConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 function App({ msalInstance }) {
+
+  useEffect(() => {
+    onAuthStateChanged(autentisering, (user) => {
+      setCurrentUser(user)
+     })
+  }, [])
+
   return (
     <MsalProvider instance={msalInstance}>
       <AuthProvider> {/* "wrapper" hele appen med AppContextProvider */}
+      <FirebaseAuth value={{currentUser}}>
         <BrowserRouter>
           <AuthenticatedTemplate>
             <Navbar />
@@ -49,6 +60,7 @@ function App({ msalInstance }) {
             <LoginPage />
           </UnauthenticatedTemplate>
         </BrowserRouter>
+        </FirebaseAuth>
       </AuthProvider> {/* slutt på  AppContextProvider */}
     </MsalProvider>
   );
