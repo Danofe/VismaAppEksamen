@@ -5,6 +5,7 @@ import "remixicon/fonts/remixicon.css";
 
 function Home() {
   return (
+    <div className="min-h-screen bg-gray-100 p-0 sm:p-12">
     <div className=" flex justify-center items-center xl:pt-50 lg:pt-40 md:pt-30">
       <div className="flex flex-wrap gap-52">
         <Link to="/Kalender">
@@ -51,8 +52,9 @@ function Home() {
         </Link>
       </div>
     </div>
+    </div>
   );
 }
 
 export default Home;
-// Alt er skrevet av: Daniel
+

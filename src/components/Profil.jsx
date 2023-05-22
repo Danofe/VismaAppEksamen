@@ -37,7 +37,8 @@ function Profil() {
   }, [instance]);
 
   return (
-      <div className="p-13">
+    <div className="min-h-screen bg-gray-100 p-0 sm:p-12 ">
+   
         <div className="p-8 bg-white mt-40">
           <div className="grid grid-cols-1 md:grid-cols-3">
             <div className="grid grid-cols-3 text-center order-last md:order-first mt-25 md:mt-0">
@@ -49,7 +50,6 @@ function Profil() {
                 <div className="absolute -m-44">
                   <img
                       src={`${ProfilBilde}`}
-
                       className="shadow-md rounded-full h-auto w-40"
                   />
                 </div>
@@ -64,7 +64,7 @@ function Profil() {
                 alt={`${brukerNavn}`}
                 className="text-4xl font-medium text-gray-700"
             />
-            <p className=" text-gray-600 mt-3">Bruker ID</p>
+            <p className=" text-gray-600 md-4 mt-3">Bruker ID</p>
             <p className="mt-8 text-gray-500">Student / Mail</p>
             <p className="mt-2 text-gray-500">Universitetet i Sør-Øst Norge</p>
           </div>
@@ -72,6 +72,7 @@ function Profil() {
             <p className="text-gray-600 text-center ">Tilleggsinformasjon</p>
           </div>
         </div>
+    
     </div>
   );
 }

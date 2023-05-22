@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        home: {
+        home: { 
           100: "#333232",
           200: "#242424",
         },
@@ -18,6 +18,8 @@ module.exports = {
       },
     },
   },
+//
+
   plugins: [
     require("tailwind-scrollbar-hide"),
     require("tailwind-typewriter")({

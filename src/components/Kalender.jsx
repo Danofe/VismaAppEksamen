@@ -119,7 +119,7 @@ function Kalender() {
     <div className="min-h-screen bg-gray-100 p-0 sm:p-12">
 
       <div className="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
-        <h1 className="text-2xl font-bold mb-8">Opprett mÃ¸te</h1>
+        <h1 className="text-2xl font-bold mb-8">Opprett mote</h1>
 
 
       <form onSubmit={handleSubmit}>
@@ -193,6 +193,13 @@ function Kalender() {
           <label htmlFor="time"
                  className="absolute duration-300 top-[-10px] space-y-3 -z-1 origin-0 text-gray-500">Slutt dato</label>
           <span className="text-sm text-red-600 hidden" id="error">Slutt dato er påkrevd</span>
+        </div>
+
+
+        <div className="relative z-0 w-full mb-5">
+         <label htmlFor="name"
+                 className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"></label>
+          <span className="text-sm text-red-600 hidden" id="error">Name is required</span>
         </div>
 
 

@@ -5,7 +5,7 @@ import Arkiv from "./Arkiv/Arkiv";
 
 function Navbar() {
   return (
-    <nav className="flex items-center justify-between flex-wrap p-6 pl-16 pr-16">
+    <nav className="flex bg-gray-600 items-center justify-between flex-wrap p-6 pl-16 pr-16">
       <div className="flex items-center flex-shrink-0 text-white mr-6 absolute hover:scale-110 duration-300">
         <span className="font-semibold text-xl tracking-tight">
           <Link to="/">
@@ -27,4 +27,4 @@ function Navbar() {
 }
 
 export default Navbar;
-// Alt er skrevet av: Daniel
+
