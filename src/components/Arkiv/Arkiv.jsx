@@ -6,28 +6,23 @@ import { getDocs } from "firebase/firestore";
 import { dbKalender } from "../../firebase/fireConfig";
 import { useAuthValue } from "../LoginRegister/brukerContext";
 
-
 function Arkiv() {
   const [arkiv, setArkiv] = useState(false);
   const [data, setData] = useState([]);
 
   const { instance } = useMsal();
-  let kalenderKø = []
-      
-  
-  const hentData = async () => {
+  let kalenderKø = [];
 
+  const hentData = async () => {
     setArkiv(!arkiv);
 
-    getDocs(dbKalender)
-    .then((snapshot) => {
-      
+    getDocs(dbKalender).then((snapshot) => {
       snapshot.docs.forEach((doc) => {
-        kalenderKø.push({...doc.data()})
-      })
-      console.log(kalenderKø)
-    })
-    setData(kalenderKø)
+        kalenderKø.push({ ...doc.data() });
+      });
+      console.log(kalenderKø);
+      setData(kalenderKø);
+    });
 
     /*const endpoint =
       "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=2023-02-24T10:00:02.012Z&enddatetime=2023-03-03T10:00:02.012Z";
@@ -95,16 +90,14 @@ function Arkiv() {
               >
                 <div className="flex pl-1 ">
                   <ul className="list-none text-base text-white opacity-70 hover:opacity-100 duration-200 font-semibold">
-                  <li>Subject: {item.Tittel}</li>
+                    <li>Subject: {item.Tittel}</li>
                     <li>Location: {item.Sted}</li>
+                    <li>Mottaker: {item.Mottaker}</li>
                     <li>
-                      {dateFormat(
-                        item.startTime,
-                        "dddd, mmmm dS, yyyy, h:MM TT"
-                      )}
+                      {dateFormat(item.fra, "dddd, mmmm dS, yyyy, h:MM TT")}
                     </li>
                     <li>
-                      {dateFormat(item.endTime, "dddd, mmmm dS, yyyy, h:MM TT")}
+                      {dateFormat(item.til, "dddd, mmmm dS, yyyy, h:MM TT")}
                     </li>
                   </ul>
                 </div>
