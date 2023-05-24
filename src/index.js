@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { PublicClientApplication, EventType } from "@azure/msal-browser";
 import { msalConfig } from "./authConfig";
+import { MsalProvider } from "@azure/msal-react";
 
 const csa = new PublicClientApplication(msalConfig);
 
@@ -15,8 +16,9 @@ csa.addEventCallback((event) => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App msalInstance={csa} />
+    <MsalProvider instance={csa}>
+      <App />
+    </MsalProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
-

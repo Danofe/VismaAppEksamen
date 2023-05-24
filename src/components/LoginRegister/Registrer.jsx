@@ -1,12 +1,16 @@
 import { autentisering } from "../../firebase/fireConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [epost, setEpost] = useState("");
   const [passord, setPassord] = useState("");
   const [bekreftPassord, setBekreftPassord] = useState("");
   const [error, setError] = useState("");
+
+  const goto = useNavigate();
+
   const passordValidering = () => {
     let gyldig = true;
     if (passord !== "" && bekreftPassord !== "") {
@@ -25,6 +29,7 @@ function Register() {
       createUserWithEmailAndPassword(autentisering, epost, passord)
         .then((res) => {
           console.log(res.user);
+          goto("/login");
         })
         .catch((err) => setError(err.message));
     }

@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { useAuthContext } from "./authContext";
+import { useAuthContext } from "./context/authContext";
 
 //Hook for å få tak i authentication config dataen fra context.
 export const useAuthConfigData = () => {
@@ -11,7 +11,8 @@ export const useAuthConfigData = () => {
 export const msalConfig = {
   auth: {
     clientId: "63ff6245-38e3-4eba-82ee-35504d8f0983",
-    authority: "https://login.microsoftonline.com/common",
+    authority:
+      "https://login.microsoftonline.com/fac82b5d-ba5f-4225-aaa3-5348b463b4f3",
     redirectUri: "http://localhost:3000/",
   },
   cache: {
@@ -27,14 +28,14 @@ export const loginRequest = {
     "offline_access",
     "profile",
     "Calendars.ReadWrite",
-    "Contacts.Read",
     "Directory.ReadWrite.All",
+    "Application.ReadWrite.All",
   ],
 };
 
 export const graphConfig = {
   graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
-  clientSecret: "fed17fb9-c62e-4944-a4ab-d7858e7d47f4",
+  clientSecret: "~ZN8Q~KoImnXaAoeRbRT2apGHToqIUJlKjuciby2",
   tenantId: "fac82b5d-ba5f-4225-aaa3-5348b463b4f3",
 };
 

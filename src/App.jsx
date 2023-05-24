@@ -5,55 +5,94 @@ import Profil from "./components/Profil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./components/LoginRegister/Registrer";
 import LoginFB from "./components/LoginRegister/LoginFB";
-import {
-  MsalProvider,
-  AuthenticatedTemplate,
-  UnauthenticatedTemplate,
-} from "@azure/msal-react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LoginPage from "./components/LoginPage/LoginPage";
-import { AuthProvider } from "./authContext";
+import { AuthProvider } from "./context/authContext";
+import { UserProvider } from "./context/userContext";
+import { useState } from "react";
+import { PrivateRoute } from "./context/PrivateRoute";
 
+import { useMsalAuthentication, useMsal } from "@azure/msal-react";
+import { InteractionType } from "@azure/msal-browser";
+import { loginRequest } from "./authConfig";
 
-function App({ msalInstance }) {
+function App() {
+  useMsalAuthentication(InteractionType.Redirect, loginRequest);
 
-  return (
-    <MsalProvider instance={msalInstance}>
-      <AuthProvider> {/* "wrapper" hele appen med AppContextProvider */}
-        <BrowserRouter>
-          <AuthenticatedTemplate>
+  const [Azure, setAzure] = useState("");
+
+  function Render() {
+    const { accounts } = useMsal();
+
+    try {
+      const username = accounts[0].username;
+      console.log(username);
+      setAzure(username);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  if (Azure !== "")
+    return (
+      <AuthProvider>
+        <UserProvider>
+          <BrowserRouter>
             <Navbar />
             <Routes>
-            <Route path="/Registrer" element={<Register/>}/>
-              <Route path="/LoginFB" element={<LoginFB/>}/>
+              <Route path="/LoginPage" element={<LoginPage />} />
+              <Route path="/Registrer" element={<Register />} />
+              <Route path="/Login" element={<LoginFB />} />
               <Route path="/auth" element={""} />
-              <Route path="/" element={<Home />} />
-              <Route path="/Kalender" element={<Kalender />} />
+
+              <Route
+                path="/"
+                element={
+                  <PrivateRoute>
+                    <Home />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/Kalender"
+                element={
+                  <PrivateRoute>
+                    <Kalender />
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path="/verify-application"
-                element={<VerifyApplication />}
+                element={
+                  <PrivateRoute>
+                    <VerifyApplication />
+                  </PrivateRoute>
+                }
               />
-              <Route path="/Profil" element={<Profil />} />
+              <Route
+                path="/Profil"
+                element={
+                  <PrivateRoute>
+                    <Profil />
+                  </PrivateRoute>
+                }
+              />
               <Route path="*" element={<h1>404</h1>} />
             </Routes>
             <Footer />
-          </AuthenticatedTemplate>
-          <UnauthenticatedTemplate>
-            <Routes>
-              <Route path="/" element={""} />
-              <Route path="/Kalender" element={""} />
-              <Route path="/Profil" element={""} />
-              <Route path="/verify-application" element={""} />
-              <Route path="*" element={<h1>404</h1>} />
-              <Route path="/auth" element={""} />
-            </Routes>
-            <LoginPage />
-          </UnauthenticatedTemplate>
-        </BrowserRouter>
-      </AuthProvider> {/* slutt på  AppContextProvider */}
-    </MsalProvider>
-  );
+          </BrowserRouter>
+        </UserProvider>
+      </AuthProvider>
+    );
+  else
+    return (
+      <>
+        {Render()}
+        <div>please wait...</div>{" "}
+      </>
+    );
 }
 
 export default App;

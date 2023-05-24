@@ -1,16 +1,12 @@
 import { React, useState } from "react";
-import axios from "axios";
-import { useMsal } from "@azure/msal-react";
 import dateFormat from "dateformat";
 import { getDocs } from "firebase/firestore";
 import { dbKalender } from "../../firebase/fireConfig";
-import { useAuthValue } from "../LoginRegister/brukerContext";
 
 function Arkiv() {
   const [arkiv, setArkiv] = useState(false);
   const [data, setData] = useState([]);
 
-  const { instance } = useMsal();
   let kalenderKø = [];
 
   const hentData = async () => {
@@ -23,31 +19,6 @@ function Arkiv() {
       console.log(kalenderKø);
       setData(kalenderKø);
     });
-
-    /*const endpoint =
-      "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=2023-02-24T10:00:02.012Z&enddatetime=2023-03-03T10:00:02.012Z";
-
-    const accessToken = await instance.acquireTokenSilent({
-      scopes: ["https://graph.microsoft.com/.default"],
-    });
-    */
-
-    /*
-      const req = await axios
-      .get(endpoint, {
-        headers: {
-          Authorization: `Bearer ${accessToken.accessToken}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        if (res.data.value === undefined) {
-          setData([]);
-        } else {
-          setData(res.data.value);
-        }
-      });
-      */
   };
 
   return (

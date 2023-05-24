@@ -1,44 +1,34 @@
-import { React, useEffect, useState } from "react";
-import { useMsal } from "@azure/msal-react";
-import axios from "axios";
-import { Buffer } from "buffer";
+import { React, useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-window.Buffer = window.Buffer || require("buffer").Buffer;
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../context/userContext";
 
 function Logout() {
-  const { instance } = useMsal();
-
   const [brukerNavn, setBrukerNavn] = useState("");
   const [ProfilBilde, setProfilBilde] = useState("");
+  const auth = getAuth();
+
+  const user = useUserContext();
+
+  const goto = useNavigate();
 
   useEffect(() => {
-    const aktivbruker = instance.getActiveAccount();
-
-    if (aktivbruker) {
-      setBrukerNavn(aktivbruker.name);
-
-      const ProfilBilde = async () => {
-        const endpoint = "https://graph.microsoft.com/v1.0/me/photo/$value";
-
-        const accessToken = await instance.acquireTokenSilent({
-          scopes: ["https://graph.microsoft.com/.default"],
-        });
-
-        const res = await axios(endpoint, {
-          headers: {
-            Authorization: `Bearer ${accessToken.accessToken}`,
-          },
-          responseType: "arraybuffer",
-        });
-        const bilde = Buffer.from(res.data, "binary").toString("base64");
-        setProfilBilde("data:image/jpeg;base64, " + bilde);
-      };
-      ProfilBilde();
+    if (user != null) {
+      setBrukerNavn();
+      setProfilBilde();
     }
-  }, [instance]);
+  }, []);
 
   const behandleUt = () => {
-    instance.logout();
+    signOut(auth)
+      .then(() => {
+        console.log("Sign-out successful.");
+        goto("/Login");
+      })
+      .catch((error) => {
+        error("An error happened.");
+      });
   };
 
   return (
