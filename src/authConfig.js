@@ -11,7 +11,8 @@ export const useAuthConfigData = () => {
 export const msalConfig = {
   auth: {
     clientId: "63ff6245-38e3-4eba-82ee-35504d8f0983",
-    authority: "https://login.microsoftonline.com/common",
+    authority:
+      "https://login.microsoftonline.com/fac82b5d-ba5f-4225-aaa3-5348b463b4f3",
     redirectUri: "http://localhost:3000/",
   },
   cache: {
