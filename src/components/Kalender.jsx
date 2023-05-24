@@ -93,7 +93,7 @@ function Kalender() {
 
       try {
         const response = await axios.get(
-          "https://graph.microsoft.com/v1.0/applications?$filter=signInAudience eq 'AzureADMyOrg'",
+          "https://graph.microsoft.com/v1.0/applications?$filter=signInAudience eq 'AzureADandPersonalMicrosoftAccount'",
           {
             headers: {
               Authorization: `Bearer ${accessToken.accessToken}`,
