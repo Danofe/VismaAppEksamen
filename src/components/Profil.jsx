@@ -1,11 +1,17 @@
 import { React, useState, useEffect } from "react";
 import { useUserContext } from "../context/userContext";
+import { getAuth, updatePassword, updateProfile } from "firebase/auth";
+import { autentisering } from "../firebase/fireConfig";
 
 function Profil() {
   const [brukerNavn, setBrukerNavn] = useState("");
   const [ProfilBilde, setProfilBilde] = useState("");
+  const [passord, setPassord] = useState("");
+  const [bekreftPassord, setBekreft] = useState("");
   const user = useUserContext();
-
+  const [error, setError] = useState("");
+  const goto = useNavigate();
+  
   useEffect(() => {
     if (user) {
       setBrukerNavn(user.user.email);
@@ -14,6 +20,45 @@ function Profil() {
     console.log(user);
   }, []);
 
+  const passordValidering = () => {
+    let gyldig = true;
+    if (passord !== "" && bekreftPassord !== "") {
+      if (passord !== bekreftPassord) {
+        gyldig = false;
+        setError("Skriv inn like passord!");
+      }
+    }
+    return gyldig;
+  };
+  const byttPassord = (e) => {
+    e.preventDefault();
+    setError("");
+    if (passordValidering()) {
+      updatePassword(autentisering.currentUser, passord)
+        .then((res) => {
+          console.log(res.user);
+          goto("/Profil");
+        })
+        .catch((err) => setError(err.message));
+    }
+    setPassord("");
+    setBekreftPassord("");
+  };
+
+  const byttBrukernavn = (e) => {
+    updateProfile(autentisering.currentUser,({
+      displayName: brukerNavn
+    }
+    ))
+    .then(() => {
+      console.log("Brukernavnet ditt har blitt byttet!")
+    }).catch((error) => {
+      console.log("En feil har skjedd, brukernavnet ble ikke byttet.")
+    })
+    setBrukerNavn("");
+  }
+
+  
   return (
     <div className="min-h-screen bg-gray-100 p-0 sm:p-12 ">
       <div className="p-8 bg-white mt-40">

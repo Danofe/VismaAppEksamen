@@ -1,8 +1,9 @@
 import { autentisering } from "../../firebase/fireConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+System.Uri profilBilde = 
 function Register() {
   const [epost, setEpost] = useState("");
   const [passord, setPassord] = useState("");
@@ -29,6 +30,10 @@ function Register() {
       createUserWithEmailAndPassword(autentisering, epost, passord)
         .then((res) => {
           console.log(res.user);
+          
+          updateProfile(autentisering.currentUser, {
+            photoURL: ""
+          })
           goto("/login");
         })
         .catch((err) => setError(err.message));
