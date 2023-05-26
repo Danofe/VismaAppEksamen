@@ -153,13 +153,17 @@ const VerifyApplication = () => {
               </span>
             </div>
 
-            <input
-              id="button"
-              type="submit"
-              value="Utfør"
-              className="w-[150px]  py-3 mt-3  text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-red-500 hover:bg-red-400 hover:shadow-lg focus:outline-none"
-            />
-            <p className="text-red-500 mt-3">{errorMessage}</p>
+            <div className="flex ">
+              <input id="button" type="submit"
+                     value="Legg til"
+                     className="w-[150px] py-3 mt-4 mr-2 mb-2 float-right text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-red-500 hover:bg-red-400 hover:shadow-lg focus:outline-none"/>
+              <p className="text-red-500 mt-3">{errorMessage}</p>
+
+              <input id="button" type="submit"
+                     value="Test"
+                     className="w-[150px] py-3 mt-4 mr-2 mb-2 float-left text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-red-500 hover:bg-red-400 hover:shadow-lg focus:outline-none"/>
+              <p className="text-red-500 mt-3">{errorMessage}</p>
+            </div>
           </form>
         </div>
       </div>

@@ -85,7 +85,7 @@ function Profil() {
           <p>{`${brukerNavn}`}</p>
           <p className="mt-8 text-gray-500">Student / Mail</p>
           <p className="mt-2 text-gray-500">Universitetet i Sør-Øst Norge</p>
-        </div>
+        </div> 
         <div className="mt-12 flex flex-col justify-center">
           <p className="text-gray-600 text-center ">Tilleggsinformasjon</p>
         </div>

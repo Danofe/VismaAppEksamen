@@ -22,9 +22,9 @@ function Arkiv() {
   };
 
   return (
-    <div className="group pr-5 z-10">
+    <div className="group pr-10 z-15">
       <button className="cursor-pointer " onClick={hentData}>
-        <div className=" bg-home-100 p-2 rounded-lg hover:shadow-md hover:scale-105 duration-200">
+        <div className="bg-gray-600 p-2 rounded-lg hover:shadow-md hover:scale-105 duration-200">
           <svg
             className="opacity-50 hover:opacity-100 duration-500"
             xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ function Arkiv() {
               arkiv ? "opacity-100 translate-x-0" : "opacity-0 translate-x-20"
             }`}
       >
-        <div className="bg-home-100/50 w-64 h-[60vh] overflow-auto scrollbar-hide rounded-md shadow-md hover:shadow-lg duration-200 group">
+        <div className="bg-gray-600/80 w-64 h-[60vh] overflow-auto scrollbar-hide rounded-md shadow-md hover:shadow-lg duration-200 group">
           {data.length === 0 && (
             <p className=" text-white flex justify-center">
               Du har ingen Møter
@@ -57,18 +57,17 @@ function Arkiv() {
             {data.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col pt-2 pb-5 border-b border-white/50 m-2"
+                className="flex flex-col pt-2 pb-5 border-b border-white m-3"
               >
                 <div className="flex pl-1 ">
                   <ul className="list-none text-base text-white opacity-70 hover:opacity-100 duration-200 font-semibold">
-                    <li>Subject: {item.Tittel}</li>
+                  <li>Subject: {item.Tittel}</li>
                     <li>Location: {item.Sted}</li>
-                    <li>Mottaker: {item.Mottaker}</li>
                     <li>
-                      {dateFormat(item.fra, "dddd, mmmm dS, yyyy, h:MM TT")}
-                    </li>
-                    <li>
-                      {dateFormat(item.til, "dddd, mmmm dS, yyyy, h:MM TT")}
+                      {dateFormat(
+                        item.startTime,
+                        "dddd, mmmm dS, yyyy, h:MM TT"
+                      )}
                     </li>
                   </ul>
                 </div>
@@ -82,4 +81,4 @@ function Arkiv() {
 }
 
 export default Arkiv;
-//Alt er skrevet av Daniel
+
