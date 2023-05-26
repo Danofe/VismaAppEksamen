@@ -35,28 +35,8 @@ function Logout() {
   };
 
   return (
-    <div className="p-3 w-64 flex flex-col rounded-md bg-home-100 hover:shadow-lg duration-200 overflow-hidden hover:scale-105">
-      <Link to="/Profil">
-        <div className="flex xl:flex-row flex-col items-center font-medium tracking-wide text-white pb-2 mb-2 xl:border-b border-gray-200 border-opacity-75 duration-300 w-full">
-          <img
-            src={`${ProfilBilde}`}
-            alt={`${brukerNavn}`}
-            className="w-7 h-7 mr-2 rounded-full"
-          />
-          {brukerNavn}
-        </div>
-      </Link>
-      <div className="flex items-center w-full">
-        <div className=" text-sm py-1 px-2 leading-none tracking-wide bg-home-200 text-white font-semibold rounded-md">
-          Admin
-        </div>
-        <button
-          className="ml-auto text-sm bg-home-200 text-white font-bold py-1 px-3 rounded hover:shadow-md duration-200 hover:scale-110"
-          onClick={behandleUt}
-        >
-          Logout
-        </button>
-      </div>
+    <div>
+
     </div>
   );
 }
