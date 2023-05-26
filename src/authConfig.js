@@ -6,7 +6,6 @@ export const useAuthConfigData = () => {
   const { authConfigData } = useAuthContext();
   return authConfigData;
 };
-
 //skrevet av Daniel
 export const msalConfig = {
   auth: {
