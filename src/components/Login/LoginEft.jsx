@@ -14,11 +14,14 @@ function Logout() {
   const goto = useNavigate();
 
   useEffect(() => {
-    if (user != null) {
-      setBrukerNavn();
-      setProfilBilde();
-    }
-  }, []);
+    setInterval(() => {
+      if (user !== null) {
+        setBrukerNavn(user.user.email);
+        setProfilBilde(user.user.photoURL);
+      }
+      console.log(user);
+    }, 100);
+  }, [user]);
 
   const behandleUt = () => {
     signOut(auth)
