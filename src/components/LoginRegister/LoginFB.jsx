@@ -16,7 +16,7 @@ function LoginFB() {
   const loginFirebase = (e) => {
     e.preventDefault();
     setError("");
-    setPersistence(autentisering, browserSessionPersistence);
+
     signInWithEmailAndPassword(autentisering, epost, passord)
       .then((UserCredential) => {
         console.log(UserCredential);

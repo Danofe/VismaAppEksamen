@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../context/userContext";
+import { autentisering } from "../../firebase/fireConfig";
 
 function Logout() {
   const [brukerNavn, setBrukerNavn] = useState("");
@@ -14,14 +15,17 @@ function Logout() {
   const goto = useNavigate();
 
   useEffect(() => {
-    if (user != null) {
-      setBrukerNavn();
-      setProfilBilde();
-    }
-  }, []);
+    setTimeout(() => {
+      if (user !== null) {
+        setBrukerNavn(user.user.email);
+        setProfilBilde(user.user.photoURL);
+      }
+      console.log(user);
+    }, 100);
+  }, [user]);
 
   const behandleUt = () => {
-    signOut(auth)
+    signOut(autentisering)
       .then(() => {
         console.log("Sign-out successful.");
         goto("/Login");
