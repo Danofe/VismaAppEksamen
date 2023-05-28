@@ -223,7 +223,7 @@ function Kalender() {
       {success && (
         <div className="absolute bottom-0 right-0 p-9">
           <div className="bg-green-500 text-white p-3">
-            <p className="text-sm">Success! Avtaleinnkallingen din ble sendt.</p>
+            <p className="text-sm">Suksess! Avtaleinnkallingen din ble sendt.</p>
             <i className="fas fa-check fa-2x text-green-300"></i>
           </div>
         </div>
