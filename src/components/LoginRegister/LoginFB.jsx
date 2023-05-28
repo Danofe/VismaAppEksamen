@@ -16,7 +16,7 @@ function LoginFB() {
   const loginFirebase = (e) => {
     e.preventDefault();
     setError("");
-
+    setPersistence(autentisering, browserSessionPersistence);
     signInWithEmailAndPassword(autentisering, epost, passord)
       .then((UserCredential) => {
         console.log(UserCredential);
@@ -28,12 +28,21 @@ function LoginFB() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-0 sm:p-12">
-      <div className="center container mx-auto">
+    <div className="min-h-screen bg-gray-100 p-0  sm:p-12">
+
+        <div className="flex-shrink-0 text-white ml-3 p-6 mr-7 hover:scale-110 duration-300">
+      <div className="font-semibold text-xl tracking-tight">
+      <div className="type-logo text-4xl tracking-normal font-bold hover:tracking-wide duration-200">
+     </div>
+    </div>
+        </div>
+            
+
+      <div className="fixed border-x-5 box-border w-[1000px] container mx-[250px]">
         <div className="auth">
           {error && <div className="auth__error">{error}</div>}
-          <div className="flex bg-white shadow-lg border justify-center rounded-[10px] px-2 my-12">
-            <div className="w-full xl:w-3/4 lg:w-11/12 flex">
+          <div className="flex bg-white shadow-lg border justify-center rounded-[10px] px-12 my-12">
+            <div className="w-full  lg:w-11/12 flex">
               <div>
                 <div className="">
                   <h1 className="pt-4 p-[10px] my-16 mb-3 text-4xl text-center font-bold"></h1>
@@ -99,7 +108,7 @@ function LoginFB() {
                   <div className="text-center">
                     <a
                       className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                      href="./index.html"
+                      href="http://localhost:3000/Registrer"
                     >
                       Har du ikke bruker? Registrer deg her!
                     </a>

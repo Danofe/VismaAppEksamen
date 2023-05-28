@@ -40,11 +40,21 @@ function Register() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-0 sm:p-12">
-      <div className="center container mx-auto">
+
+  
+        <div className="flex-shrink-0 text-white ml-3 p-6 mr-7 hover:scale-110 duration-300">
+      <div className="font-semibold text-xl tracking-tight">
+      <div className="type-logo text-4xl tracking-normal font-bold hover:tracking-wide duration-200">
+     </div>
+    </div>
+        </div>
+            
+
+      <div className="fixed border-x-5 box-border w-[1000px] container mx-[250px]">
         <div className="auth">
           {error && <div className="auth__error">{error}</div>}
           <div className="flex bg-white shadow-lg border justify-center rounded-[10px] px-2 my-12">
-            <div className="w-full xl:w-3/4 lg:w-11/12 flex">
+            <div className="w-full lg:w-11/12 flex">
               <div>
                 <div className="">
                   <h1 className="pt-6 mb-3 text-2xl text-center font-bold">
@@ -128,14 +138,16 @@ function Register() {
                     </button>
                   </div>
                   <hr className="mb-6 border-t" />
+                  
                   <div className="text-center">
                     <a
                       className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                      href="./index.html"
+                      href="http://localhost:3000/Login"
                     >
                       Har du allerede en bruker? Logg inn!
                     </a>
                   </div>
+
                 </form>
               </div>
             </div>
