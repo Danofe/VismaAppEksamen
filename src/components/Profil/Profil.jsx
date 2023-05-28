@@ -1,11 +1,18 @@
 import { React, useState, useEffect } from "react";
 import { useUserContext } from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 function Profil() {
   const [brukerNavn, setBrukerNavn] = useState("");
   const [ProfilBilde, setProfilBilde] = useState("");
   const user = useUserContext();
-
+  const goto = useNavigate();
+  const behandlePass = () => {
+        goto("/EndrePassord");
+  };
+  const behandleBrukernavn = () => {
+    goto("/EndreBrukernavn");
+};
   useEffect(() => {
     if (user) {
       setBrukerNavn(user.user.email);
@@ -44,6 +51,25 @@ function Profil() {
         <div className="mt-12 flex flex-col justify-center">
           <p className="text-gray-600 text-center ">Tilleggsinformasjon</p>
         </div>
+        <div className="mb-6 text-center">
+                    <button
+                      type="submit"
+                      onClick={behandlePass}
+                      className="w-[200px] mb-4 bg-red-500 hover:bg-red-400 py-4 font-bold text-white rounded-lg focus:outline-none "
+                    >
+                      
+                      Endre passord
+                    </button>
+                  </div>
+                  <div className="mb-6 text-center">
+                    <button
+                      type="submit"
+                      onClick={behandleBrukernavn}
+                      className="w-[200px] mb-4 bg-red-500 hover:bg-red-400 py-4 font-bold text-white rounded-lg focus:outline-none "
+                    >
+                      Endre brukernavn
+                    </button>
+                  </div>
       </div>
     </div>
   );

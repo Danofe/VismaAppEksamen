@@ -6,17 +6,15 @@ import { useUserContext } from "../../context/userContext";
 
 function ByttNavn() {
   const [navn, setNavn] = useState("");
+  const [success, setSucess] = useState(false)
   const user = useUserContext();
   const goto = useNavigate();
-  
-    //console.log(user.user.displayName)
-
-
   const byttBrukernavn = (e) => {
     updateProfile(user.user, {
         displayName: navn
       }).then(() => {
         console.log("Fikset")
+        setSucess(true);
       }).catch((error) => {
         console.log("Funket ikke")
       });
@@ -46,6 +44,9 @@ function ByttNavn() {
                       onChange={(e) => setNavn(e.target.value)}
                     />
                   </div>
+                  {success && (
+                      <h1>Passordet har blitt endret!</h1>
+                      )}
                   <button
                       type="submit"
                       className="w-[200px] bg-red-500 hover:bg-red-400 py-4 font-bold text-white rounded-lg focus:outline-none "
@@ -55,7 +56,6 @@ function ByttNavn() {
                     
                 </div>
             </form>
-            
         </div>
   );
 }

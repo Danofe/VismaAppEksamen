@@ -17,7 +17,7 @@ function Logout() {
   useEffect(() => {
     setTimeout(() => {
       if (user !== null) {
-        setBrukerNavn(user.user.email);
+        setBrukerNavn(user.user.displayName);
         setProfilBilde(user.user.photoURL);
       }
       console.log(user);

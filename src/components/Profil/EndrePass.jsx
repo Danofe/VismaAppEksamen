@@ -42,10 +42,10 @@ function EndrePass() {
            .then(() => {
               //console.log(user.user);
               setSuccess(true);
-              console.log("IT WORKSSSS")
+              console.log("Passordet har blitt endret")
             })
             .catch((error) => {
-              console.log("helvete")
+              console.log("En feil har skjedd")
             }); 
           
         }
