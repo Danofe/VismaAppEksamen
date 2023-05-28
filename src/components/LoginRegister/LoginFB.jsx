@@ -2,17 +2,19 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
   browserSessionPersistence,
+  getAuth
 } from "firebase/auth";
 import { useState } from "react";
 import { autentisering } from "../../firebase/fireConfig";
 import { useNavigate } from "react-router-dom";
+
 
 function LoginFB() {
   const [epost, setEpost] = useState("");
   const [passord, setPassord] = useState("");
   const [error, setError] = useState("");
   const goto = useNavigate();
-
+  
   const loginFirebase = (e) => {
     e.preventDefault();
     setError("");
