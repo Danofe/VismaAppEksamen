@@ -17,8 +17,8 @@ function EndrePass() {
     
     const passordValidering = () => {
         let gyldig = true;
-        if (passord !== "" && bekreftPassord !== "") {
-          if (passord !== bekreftPassord) {
+        if (nyttPassord !== "" && bekreftPassord !== "") {
+          if (nyttPassord !== bekreftPassord) {
             gyldig = false;
             setError("Skriv inn like passord!");
           }
@@ -29,15 +29,18 @@ function EndrePass() {
       const byttPassord = (e) => {
         e.preventDefault();
         setError("");
+      
         if (passordValidering()) {
-          const credential = auth.EmailAuthProvider.credential(
+          const credential = EmailAuthProvider.credential(
             user.user.email,
             passord
-        );
-          reauthenticateWithCredential(credential, passord)
-          updatePassword(auth.currentUser, nyttPassord)
+        ); 
+          reauthenticateWithCredential(credential).then(() =>{
+            console.log("auth funker"+credential)
+          }) ;
+          updatePassword(user.user, nyttPassord)
            .then(() => {
-              console.log(user.user);
+              //console.log(user.user);
               setSuccess(true);
               console.log("IT WORKSSSS")
             })
@@ -47,6 +50,7 @@ function EndrePass() {
           
         }
         console.log("sen logg")
+        console.log(user.user.email)
         setPassord("");
         setNyttPassord("");
         setBekreftPassord("");
