@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { useUserContext } from "../context/userContext";
+import { useUserContext } from "../../context/userContext";
 
 function Profil() {
   const [brukerNavn, setBrukerNavn] = useState("");

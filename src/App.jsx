@@ -1,7 +1,7 @@
 import Kalender from "./components/Kalender";
 import VerifyApplication from "./components/VerifyApplication";
 import Home from "./components/Home";
-import Profil from "./components/Profil";
+import Profil from "./components/Profil/Profil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./components/LoginRegister/Registrer";
 import LoginFB from "./components/LoginRegister/LoginFB";
@@ -12,7 +12,8 @@ import { AuthProvider } from "./context/authContext";
 import { UserProvider } from "./context/userContext";
 import { useState } from "react";
 import { PrivateRoute } from "./context/PrivateRoute";
-
+import EndrePass from "./components/Profil/EndrePass";
+import EndreNavn from "./components/Profil/EndreNavn";
 import { useMsalAuthentication, useMsal } from "@azure/msal-react";
 import { InteractionType } from "@azure/msal-browser";
 import { loginRequest } from "./authConfig";
@@ -44,6 +45,8 @@ function App() {
               <Route path="/LoginPage" element={<LoginPage />} />
               <Route path="/Registrer" element={<Register />} />
               <Route path="/Login" element={<LoginFB />} />
+              <Route path="/EndrePassord" element={<EndrePass />} />
+              <Route path="/EndreBrukernavn" element={<EndreNavn />} />
               <Route path="/auth" element={""} />
 
               <Route

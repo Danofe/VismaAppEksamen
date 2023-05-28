@@ -8,7 +8,6 @@ function ByttNavn() {
   const [navn, setNavn] = useState("");
   const user = useUserContext();
   const goto = useNavigate();
-  const auth = getAuth();
   
     //console.log(user.user.displayName)
 

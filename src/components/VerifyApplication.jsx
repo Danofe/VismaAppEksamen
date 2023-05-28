@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../context/authContext";
 import { dbConfig } from "../firebase/fireConfig";
-import { addDoc } from "firebase/firestore";
+import { addDoc, getDocs } from "firebase/firestore";
+import {getAuth, updatePassword, updateProfile} from "firebase/auth";
 //Skrevet av Sindre
 //State hooks for form inputs og en for error meldinger
 const VerifyApplication = () => {
@@ -12,6 +13,33 @@ const VerifyApplication = () => {
   const [clientSecret, setClientSecret] = useState("");
   const { updateAuthConfig } = useAuthContext();
   const [errorMessage, setErrorMessage] = useState("");
+  const [data, setData] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
+  const auth = getAuth();
+
+  
+
+  const fetchBrukerData = async () => {
+    const snapshot = await getDocs(dbConfig);
+    const configKø = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    setData(configKø);
+  };
+
+  React.useEffect(() => {
+    fetchBrukerData();
+  }, []);
+
+  const hentData = async (event) => {
+    const newSelectedId = event.target.value;
+    const selectedUser = data.find((user) => user.id === newSelectedId);
+    if (selectedUser) {
+      setName(selectedUser.Name);
+      setApplicationId(selectedUser.ApplicationID);
+      setTenantId(selectedUser.TenantID);
+      setClientSecret(selectedUser.Clientsecret);
+    }
+    setSelectedId(newSelectedId);
+  };
 
   //submit handler for formen
   const handleSubmit = async (e) => {
@@ -22,6 +50,9 @@ const VerifyApplication = () => {
       Clientsecret: clientSecret,
       TenantID: tenantId,
     });
+
+
+
 
     // sjekker om noen felter er tomme
     if (!name || !tenantId || !clientSecret || !applicationId) {
@@ -160,6 +191,19 @@ const VerifyApplication = () => {
               className="w-[150px]  py-3 mt-3  text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-red-500 hover:bg-red-400 hover:shadow-lg focus:outline-none"
             />
             <p className="text-red-500 mt-3">{errorMessage}</p>
+            <select
+                name="select"
+                id="databaseConfig"
+                value={selectedId}
+                onChange={hentData}
+                className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+              >
+                {data.map((kø) => (
+                  <option key={kø.id} value={kø.id}>
+                    {kø.Name}
+                  </option>
+                ))}
+              </select>
           </form>
         </div>
       </div>
