@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useMsal } from "@azure/msal-react";
-import { addDoc, getDoc } from "firebase/firestore";
+import { addDoc, getDocs } from "firebase/firestore";
 import { dbKalender, dbConfig } from "../firebase/fireConfig";
 
 function Kalender() {
@@ -11,17 +11,42 @@ function Kalender() {
     startTime: "",
     endTime: "",
     location: "",
-    application: "",
+    attendees: [""],
     recipient: "",
   });
   const [success, setSuccess] = useState(false);
   const [applications, setApplications] = useState([]);
+
+  //setUseState for valgt application fra database
+  const [selectedApplication, setSelectedApplication] = useState(null);
+
+  let app = [];
+
+  //Henter alle applications fra database
+  const getApplications = async () => {
+    getDocs(dbConfig).then((snapshot) => {
+      snapshot.docs.map((doc) => {
+        app.push({ ...doc.data() });
+      });
+      setApplications(app);
+    });
+  };
 
   const handleChange = (event) => {
     setFormData({
       ...formData,
       [event.target.id]: event.target.value,
     });
+  };
+
+  const handleChange2 = (event) => {
+    const valgtAppId = parseInt(event.target.value);
+    const valgtApp = applications.find((app) => app.id === valgtAppId);
+    console.log(event.target.value);
+    console.log(valgtAppId);
+
+    setSelectedApplication(valgtApp);
+    console.log(selectedApplication);
   };
 
   const handleSubmit = async (event) => {
@@ -32,6 +57,7 @@ function Kalender() {
       Fra: formData.startTime,
       Til: formData.endTime,
       Sted: formData.location,
+      attendees: formData.attendees,
       Mottaker: formData.recipient,
       Status: "venter",
       //Config: hente config
@@ -45,7 +71,7 @@ function Kalender() {
 
     try {
       const response = await axios.post(
-        `https://graph.microsoft.com/v1.0/me/events`,
+        `https://graph.microsoft.com/v1.0/users/${accounts[0].tenantId}/events`,
         {
           subject: formData.title,
           start: {
@@ -59,12 +85,12 @@ function Kalender() {
           location: {
             displayName: formData.location,
           },
-          attendees: formData.attendees.map((attendee) => ({
+          recipient: {
             emailAddress: {
-              address: attendee.email, //formData.recipient ??
+              address: formData.recipient,
             },
-            type: "required",
-          })),
+          },
+
           body: {
             contentType: "HTML",
             content: formData.description,
@@ -77,6 +103,7 @@ function Kalender() {
           },
         }
       );
+      console.log(response);
 
       setSuccess(true);
     } catch (error) {
@@ -84,7 +111,7 @@ function Kalender() {
     }
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const getApplications = async () => {
       const accessToken = await instance.acquireTokenSilent({
         account: accounts[0],
@@ -102,13 +129,14 @@ function Kalender() {
         );
 
         setApplications(response.data.value);
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
     };
 
     getApplications();
-  }, []);
+  }, []); */
 
   return (
     <div
@@ -127,18 +155,13 @@ function Kalender() {
                 type="text"
                 id="title"
                 name="name"
-                placeholder=" "
+                placeholder=" Tittel "
                 required
                 value={formData.title}
                 onChange={handleChange}
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               />
-              <label
-                htmlFor="title"
-                className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              >
-                Tittel
-              </label>
+
               <span className="text-sm text-red-600 hidden" id="error">
                 Name is required
               </span>
@@ -149,18 +172,13 @@ function Kalender() {
                 type="email"
                 id="recipient"
                 name="email"
-                placeholder=" "
+                placeholder=" Mottaker "
                 value={formData.recipient}
                 onChange={handleChange}
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
                 autoComplete="off"
               />
-              <label
-                htmlFor="email"
-                className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              >
-                Mottaker
-              </label>
+
               <span className="text-sm text-red-600 hidden" id="error">
                 E-postadresse er påkrevd
               </span>
@@ -171,18 +189,13 @@ function Kalender() {
                 type="text"
                 name="place"
                 id="location"
-                placeholder=" "
+                placeholder=" Sted "
                 required
                 value={formData.location}
                 onChange={handleChange}
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               />
-              <label
-                htmlFor="name"
-                className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              >
-                Sted
-              </label>
+
               <span className="text-sm text-red-600 hidden" id="error">
                 Name is required
               </span>
@@ -192,22 +205,17 @@ function Kalender() {
               <select
                 name="select"
                 id="application"
-                value={formData.application}
-                onChange={handleChange}
+                placeholder=" Velg applikasjon "
+                onClick={getApplications}
+                onChange={handleChange2}
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               >
                 {applications.map((app) => (
-                  <option key={app.appId} value={app.appId}>
-                    {app.displayName}
+                  <option key={app.id} value={app.id}>
+                    {app.Name}
                   </option>
                 ))}
               </select>
-              <label
-                htmlFor="select"
-                className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              >
-                Velg applikasjon
-              </label>
               <span className="text-sm text-red-600 hidden" id="error">
                 Alternativet må velges
               </span>
@@ -219,18 +227,13 @@ function Kalender() {
                   type={"datetime-local"}
                   id="startTime"
                   name="date"
-                  placeholder=" "
+                  placeholder=" start dato "
                   value={formData.startTime}
                   onChange={handleChange}
                   onClick="this.setAttribute('type', 'date');"
                   className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
                 />
-                <label
-                  htmlFor="date"
-                  className="absolute duration-300 top-[-10px] -z-1 origin-0 text-gray-500"
-                >
-                  Start dato
-                </label>
+
                 <span className="text-sm text-red-600 hidden" id="error">
                   start dato er påkrevd
                 </span>
@@ -241,51 +244,20 @@ function Kalender() {
               <input
                 type={"datetime-local"}
                 name="time"
-                placeholder=" "
+                placeholder=" slutt dato "
                 id="endTime"
                 value={formData.endTime}
                 onChange={handleChange}
                 onClick="this.setAttribute('type', 'time');"
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               />
-              <label
-                htmlFor="time"
-                className="absolute duration-300 top-[-10px] space-y-3 -z-1 origin-0 text-gray-500"
-              >
-                Slutt dato
-              </label>
+
               <span className="text-sm text-red-600 hidden" id="error">
                 Slutt dato er påkrevd
               </span>
             </div>
 
             <div className="relative z-0 w-full mb-5">
-              <label
-                htmlFor="name"
-                className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              ></label>
-              <span className="text-sm text-red-600 hidden" id="error">
-                Name is required
-              </span>
-            </div>
-
-            <div className="relative z-0 w-full mb-5">
-              <input
-                type="text"
-                id="description"
-                name="name"
-                placeholder=" "
-                required
-                value={formData.endTime}
-                onChange={handleChange}
-                className="pt-3 pb-2 block w-full px-0 mt-0 space-y-3 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-              />
-              <label
-                htmlFor="name"
-                className="absolute duration-300 top-3 space-y-3 -z-1 origin-0 text-gray-500"
-              >
-                Beskrivelse
-              </label>
               <span className="text-sm text-red-600 hidden" id="error">
                 Name is required
               </span>

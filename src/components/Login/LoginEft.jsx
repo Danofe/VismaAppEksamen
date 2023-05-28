@@ -8,7 +8,6 @@ import { autentisering } from "../../firebase/fireConfig";
 function Logout() {
   const [brukerNavn, setBrukerNavn] = useState("");
   const [ProfilBilde, setProfilBilde] = useState("");
-  const auth = getAuth();
 
   const user = useUserContext();
 

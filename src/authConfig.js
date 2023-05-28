@@ -23,10 +23,8 @@ export const msalConfig = {
 
 export const loginRequest = {
   scopes: [
-    "User.Read",
-    "openid",
-    "offline_access",
-    "profile",
+    "People.Read.All",
+    "Organization.Read.All",
     "Calendars.ReadWrite",
     "Directory.ReadWrite.All",
     "Application.ReadWrite.All",

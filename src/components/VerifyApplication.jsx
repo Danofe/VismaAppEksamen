@@ -48,6 +48,7 @@ const VerifyApplication = () => {
       //Hvis verification er suksessful, så oppdaterer authentication konfigurasjonen seg.
       if (response.data.message === "Verification successful!") {
         updateAuthConfig(tenantId, clientSecret, applicationId);
+        console.log(response.data.data);
       } else {
         console.error("Invalid tenantId, clientSecret, name, or applicationId");
         setErrorMessage(
