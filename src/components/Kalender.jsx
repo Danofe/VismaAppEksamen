@@ -49,6 +49,10 @@ function Kalender() {
     });
   };
 
+  useEffect(() => {
+    getApplications();
+  }, []);
+
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -59,8 +63,10 @@ function Kalender() {
   const handleChange2 = (event) => {
     const valgtAppId = parseInt(event.target.value);
     const valgtApp = applications.find((app) => app.id === valgtAppId);
-    console.log(event.target.value);
-    console.log(valgtAppId);
+    if(!valgtApp) {
+      console.error("fant ikke applikasjon");
+      return;
+    }
 
     setSelectedApplication(valgtApp);
     console.log(selectedApplication);
@@ -68,6 +74,11 @@ function Kalender() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if(!selectedApplication) {
+      console.error("ingen applikasjon er valgt");
+      return;
+    }
 
     addDoc(dbKalender, {
       Tittel: formData.title,
@@ -80,15 +91,18 @@ function Kalender() {
       //Config: hente config
       //Bruker: hente bruker
     });
+    
+    const tokenResponse = await axios.post("/api/getToken", {
+    tenantId: selectedApplication.TenantId,
+    applicationId: selectedApplication.ApplicationId,
+    clientSecret: selectedApplication.ClientSecret,
 
-    const accessToken = await instance.acquireTokenSilent({
-      account: accounts[0],
-      scopes: ["https://graph.microsoft.com/.default"],
     });
+    const accessToken = tokenResponse.data.token;
 
     try {
       const response = await axios.post(
-        `https://graph.microsoft.com/v1.0/users/${accounts[0].tenantId}/events`,
+        `https://graph.microsoft.com/v1.0/users/${formData.recipient}/events`,
         {
           subject: formData.title,
           start: {
@@ -102,7 +116,7 @@ function Kalender() {
           location: {
             displayName: formData.location,
           },
-          recipient: {
+          attendees: {
             emailAddress: {
               address: formData.recipient,
             },
