@@ -53,8 +53,6 @@ function Kalender() {
     getApplications();
   }, []);
 
-
-
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -64,9 +62,9 @@ function Kalender() {
 
   const handleChange2 = (event) => {
     console.log(event.target.value);
-    const valgtAppId = (event.target.value);
+    const valgtAppId = event.target.value;
     const valgtApp = applications.find((app) => app.Name === valgtAppId);
-    if(!valgtApp) {
+    if (!valgtApp) {
       console.error("fant ikke applikasjon");
       return;
     }
@@ -79,7 +77,7 @@ function Kalender() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if(!selectedApplication) {
+    if (!selectedApplication) {
       console.error("ingen applikasjon er valgt");
       return;
     }
@@ -95,13 +93,15 @@ function Kalender() {
       //Config: hente config
       //Bruker: hente bruker
     });
-    
-    const tokenResponse = await axios.post("http://localhost:4000/api/getToken", {
-    tenantId: selectedApplication.TenantId,
-    applicationId: selectedApplication.ApplicationId,
-    clientSecret: selectedApplication.ClientSecret,
 
-    });
+    const tokenResponse = await axios.post(
+      "http://localhost:4000/api/getToken",
+      {
+        tenantId: selectedApplication.TenantId,
+        applicationId: selectedApplication.ApplicationId,
+        clientSecret: selectedApplication.ClientSecret,
+      }
+    );
     const accessToken = tokenResponse.data.token;
 
     try {
