@@ -90,7 +90,7 @@ function App() {
                 }
               />
               <Route
-                path="/EndrePassord"
+                path="/EndreBrukernavn"
                 element={
                   <PrivateRoute>
                     <ByttNavn />

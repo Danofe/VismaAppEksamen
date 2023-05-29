@@ -58,7 +58,7 @@ function EndrePass() {
   };
 
   return (
-    <div className="min-h-screen  bg-gray-100 p-0  sm:p-12">
+    <div className="min-h-screen  bg-gray-100 p-0  sm:p-12 flex justify-center">
       <div className="relative top-14  left-0 right-0 text-center p-0  sm:p-10">
         <div className=" box-border w-[300px] container mx-[300px]">
           <div
