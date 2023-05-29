@@ -7,7 +7,7 @@ export const PrivateRoute = ({ children }) => {
   const { user } = useUserContext();
 
   if (user === null) {
-    return <Navigate to="/Loginpage" />;
+    return <Navigate to="/Login" />;
   }
   return children;
 };

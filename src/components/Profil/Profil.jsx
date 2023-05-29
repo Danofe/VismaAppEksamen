@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { useUserContext } from "../context/userContext";
+import { useUserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 
 function Profil() {

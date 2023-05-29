@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@azure/msal-node": "^1.16.0",
+    "@azure/msal-node": "^1.17.2",
     "@azure/msal-react": "^1.5.3",
     "@heroicons/react": "^2.0.15",
     "@testing-library/jest-dom": "^5.16.5",

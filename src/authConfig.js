@@ -23,6 +23,7 @@ export const msalConfig = {
 
 export const loginRequest = {
   scopes: [
+    "User.Read",
     "People.Read.All",
     "Organization.Read.All",
     "Calendars.ReadWrite",
