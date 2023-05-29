@@ -27,6 +27,7 @@ export const loginRequest = {
     "People.Read.All",
     "Organization.Read.All",
     "Calendars.ReadWrite",
+
     "Directory.ReadWrite.All",
     "Application.ReadWrite.All",
   ],
