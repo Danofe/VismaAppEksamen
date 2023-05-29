@@ -21,7 +21,7 @@ function Kalender() {
   const [applications, setApplications] = useState([]);
 
   //setUseState for valgt application fra database
-  const [selectedApplication, setSelectedApplication] = useState([]);
+  const [selectedApplication, setSelectedApplication] = useState(null);
 
   let app = [];
   //Setter opp useState for kalender
@@ -71,7 +71,7 @@ function Kalender() {
 
     setSelectedApplication(valgtApp);
     console.log(selectedApplication);
-    console.log(selectedApplication.tenantID);
+    console.log(selectedApplication.TenantID);
   };
 
   const handleSubmit = async (event) => {
@@ -97,16 +97,16 @@ function Kalender() {
     const tokenResponse = await axios.post(
       "http://localhost:4000/api/getToken",
       {
-        tenantId: selectedApplication.TenantId,
-        applicationId: selectedApplication.ApplicationId,
-        clientSecret: selectedApplication.ClientSecret,
+        tenantId: selectedApplication.TenantID,
+        applicationId: selectedApplication.ApplicationID,
+        clientSecret: selectedApplication.Clientsecret,
       }
     );
     const accessToken = tokenResponse.data.token;
 
     try {
       const response = await axios.post(
-        `https://graph.microsoft.com/v1.0/users/${formData.recipient}/events`,
+        `https://graph.microsoft.com/v1.0/users/${formData.recipient}/calendars/events`,
         {
           subject: formData.title,
           start: {
