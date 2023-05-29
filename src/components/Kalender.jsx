@@ -21,7 +21,7 @@ function Kalender() {
   const [applications, setApplications] = useState([]);
 
   //setUseState for valgt application fra database
-  const [selectedApplication, setSelectedApplication] = useState(null);
+  const [selectedApplication, setSelectedApplication] = useState([]);
 
   let app = [];
   //Setter opp useState for kalender
@@ -53,6 +53,8 @@ function Kalender() {
     getApplications();
   }, []);
 
+
+
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -61,8 +63,9 @@ function Kalender() {
   };
 
   const handleChange2 = (event) => {
-    const valgtAppId = parseInt(event.target.value);
-    const valgtApp = applications.find((app) => app.id === valgtAppId);
+    console.log(event.target.value);
+    const valgtAppId = (event.target.value);
+    const valgtApp = applications.find((app) => app.Name === valgtAppId);
     if(!valgtApp) {
       console.error("fant ikke applikasjon");
       return;
@@ -70,6 +73,7 @@ function Kalender() {
 
     setSelectedApplication(valgtApp);
     console.log(selectedApplication);
+    console.log(selectedApplication.tenantID);
   };
 
   const handleSubmit = async (event) => {
@@ -92,7 +96,7 @@ function Kalender() {
       //Bruker: hente bruker
     });
     
-    const tokenResponse = await axios.post("/api/getToken", {
+    const tokenResponse = await axios.post("http://localhost:4000/api/getToken", {
     tenantId: selectedApplication.TenantId,
     applicationId: selectedApplication.ApplicationId,
     clientSecret: selectedApplication.ClientSecret,
@@ -230,7 +234,7 @@ function Kalender() {
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               >
                 {applications.map((app) => (
-                  <option key={app.appId} value={app.appId}>
+                  <option key={app.appId} value={app.Name}>
                     {app.Name}
                   </option>
                 ))}
