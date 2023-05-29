@@ -21,7 +21,7 @@ function Kalender() {
   const [applications, setApplications] = useState([]);
 
   //setUseState for valgt application fra database
-  const [selectedApplication, setSelectedApplication] = useState(null);
+  const [selectedApplication, setSelectedApplication] = useState([]);
 
   let app = [];
   //Setter opp useState for kalender
@@ -129,7 +129,7 @@ function Kalender() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-0 sm:p-1 ">
+    <div className="min-h-screen bg-gray-100 p-0 sm:p-1 flex justify-center ">
       <style
         dangerouslySetInnerHTML={{
           __html:
@@ -137,7 +137,7 @@ function Kalender() {
         }}
       />
 
-      <div className="container w-[1100px] mt-10 px-12 py-12 bg-5ray-500  sm:rounded-3xl grid grid-cols-2 gap-10 fixed border-x-5 box-border  mx-[250px]">
+      <div className=" container w-[1100px] mt-10 px-12 py-12 bg-5ray-500  sm:rounded-3xl grid grid-cols-2 gap-10 fixed border-x-5 box-border mx-[250px]">
         <div className="col-span-1 flex flex-col bg-white border-2 sm:rounded-3xl shadow-lg p-4 ">
           <h2 className="mb-2 font-bold text-2xl  ">Opprett avtale</h2>
           <form onSubmit={handleSubmit}>
@@ -216,7 +216,7 @@ function Kalender() {
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               >
                 {applications.map((app) => (
-                  <option key={app.appId} value={app.appId}>
+                  <option key={app.appId} value={app.Name}>
                     {app.Name}
                   </option>
                 ))}
@@ -335,15 +335,21 @@ function Kalender() {
                 >
                   <div className="flex pl-1">
                     <ul className="list-none text-base text-black duration-200 font-semibold w-screen">
-                      <li>Subject: {item.Tittel}</li>
-                      <li>Location: {item.Sted}</li>
+                      <li>Tittel: {item.Tittel}</li>
+                      <li>Sted: {item.Sted}</li>
                       <li>Mottaker: {item.Mottaker}</li>
                       <li>
+                        Fra:{" "}
                         {dateFormat(item.fra, "dddd, mmmm dS, yyyy, h:MM TT")}
                       </li>
+                      <li>
+                        Til:{" "}
+                        {dateFormat(item.til, "dddd, mmmm dS, yyyy, h:MM TT")}
+                      </li>
+                      <li>Status: {item.Status}</li>
                       <div className="flex justify-between pt-3">
                         <div className="bg-red-500 rounded-md  text-white hover:scale-105 hover:bg-red-400 hover:shadow-lg focus:outline-none font-normal">
-                          <button className="p-1 pl-4 pr-4  ">Send</button>
+                          <button className="p-1 pl-4 pr-4 ">Send</button>
                         </div>
                         <div className="bg-red-500 rounded-md text-white hover:scale-105 hover:bg-red-400 hover:shadow-lg focus:outline-none font-normal">
                           <button className="p-1 pl-4 pr-4 ">Fjern</button>

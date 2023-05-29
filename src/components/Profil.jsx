@@ -13,16 +13,18 @@ function Profil() {
   const behandleBrukernavn = () => {
     goto("/EndreBrukernavn");
   };
-  useEffect(() => {
+
+  setTimeout(() => {
     if (user) {
-      setBrukerNavn(user.user.email);
+      setBrukerNavn(user.user.displayName);
       setProfilBilde(user.user.photoURL);
     }
+
     console.log(user);
-  }, []);
+  }, 100);
 
   return (
-    <div className="min-h-screen bg-gray-100  p-0 sm:p-12 ">
+    <div className="min-h-screen bg-gray-100  p-0 sm:p-12 flex justify-center ">
       <div className=" bg-white mt-40 fixed border-x-5 box-border w-[900px] container mx-[250px]">
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="grid grid-cols-3 text-center order-last md:order-first mt-25 md:mt-0"></div>
