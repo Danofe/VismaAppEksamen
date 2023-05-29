@@ -133,7 +133,7 @@ function Kalender() {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken.accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
           },
         }
