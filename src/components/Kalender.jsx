@@ -16,13 +16,15 @@ function Kalender() {
     recipient: "",
   });
   const [success, setSuccess] = useState(false);
+
+  //Setter opp useState for applications fra database
   const [applications, setApplications] = useState([]);
 
   //setUseState for valgt application fra database
   const [selectedApplication, setSelectedApplication] = useState(null);
 
   let app = [];
-
+  //Setter opp useState for kalender
   const [data, setData] = useState([]);
 
   let kalenderKø = [];
@@ -316,11 +318,10 @@ function Kalender() {
           )}
         </div>
 
-        <div className="col-span-1 flex flex-col  bg-white border-2 sm:rounded-3xl shadow-lg p-4 w-[450px] overflow-auto">
+        <div className="col-span-1 flex flex-col bg-white border-2 sm:rounded-3xl shadow-lg p-4 w-[450px] overflow-auto">
           <h2 className="mb-2 font-bold text-2xl ">Avtale kø</h2>
-          Her vil møtene man opprett bli lagt inn i en kø før de sendes videre
-          til arkiv og kalenderen
-          <div className=" h-[40vh]  overflow-auto scrollbar-hide rounded-md shadow-md hover:shadow-lg duration-200 group">
+
+          <div className=" h-[45vh]  overflow-auto scrollbar-hide rounded-xl shadow-md hover:shadow-lg duration-200 group">
             {data.length === 0 && (
               <p className=" text-black flex justify-center">
                 Du har ingen Møter
@@ -330,16 +331,24 @@ function Kalender() {
               {data.map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-col pt-2 pb-5 border-b border-black/50 m-2"
+                  className="flex flex-col pt-2 pb-5 border-b border-black/50 m-2 "
                 >
-                  <div className="flex pl-1 ">
-                    <ul className="list-none text-base text-black duration-200 font-semibold">
+                  <div className="flex pl-1">
+                    <ul className="list-none text-base text-black duration-200 font-semibold w-screen">
                       <li>Subject: {item.Tittel}</li>
                       <li>Location: {item.Sted}</li>
                       <li>Mottaker: {item.Mottaker}</li>
                       <li>
                         {dateFormat(item.fra, "dddd, mmmm dS, yyyy, h:MM TT")}
                       </li>
+                      <div className="flex justify-between pt-3">
+                        <div className="bg-red-500 rounded-md  text-white hover:scale-105 hover:bg-red-400 hover:shadow-lg focus:outline-none font-normal">
+                          <button className="p-1 pl-4 pr-4  ">Send</button>
+                        </div>
+                        <div className="bg-red-500 rounded-md text-white hover:scale-105 hover:bg-red-400 hover:shadow-lg focus:outline-none font-normal">
+                          <button className="p-1 pl-4 pr-4 ">Fjern</button>
+                        </div>
+                      </div>
                     </ul>
                   </div>
                 </div>
@@ -347,12 +356,6 @@ function Kalender() {
             </>
           </div>
           <div className="flex justify-between">
-            <button
-              className="absolute bottom-[70px] w-[150px]  py-3 mt-3  text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-red-500 hover:bg-red-400 hover:shadow-lg focus:outline-none"
-              type="button"
-            >
-              Utfør
-            </button>
             {success && (
               <div className="absolute bottom-0 right-0 p-9">
                 <div className="bg-green-500 text-white p-3">
@@ -361,12 +364,6 @@ function Kalender() {
                 </div>
               </div>
             )}
-            <button
-              className="absolute bottom-[70px] inset-x-[850px] w-[150px] py-3 mt-3  text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-red-500 hover:bg-red-400 hover:shadow-lg focus:outline-none"
-              type="button"
-            >
-              Fjern
-            </button>
           </div>
         </div>
       </div>

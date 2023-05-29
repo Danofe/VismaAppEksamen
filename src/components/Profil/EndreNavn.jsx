@@ -58,7 +58,7 @@ function ByttNavn() {
 
                 <button
                   type="submit "
-                  className="w-[150px]  py-3 mt-5  text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-red-500 hover:bg-red-400 hover:shadow-lg focus:outline-none"
+                  className="w-[150px] py-3 mt-5 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-red-500 hover:bg-red-400 hover:shadow-lg focus:outline-none"
                 >
                   Bytt navn
                 </button>

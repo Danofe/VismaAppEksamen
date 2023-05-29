@@ -1,7 +1,6 @@
 import React from "react";
 import LoginButton from "./Login/csLogin";
 import { Link } from "react-router-dom";
-import Arkiv from "./Arkiv/Arkiv";
 
 function Navbar() {
   return (
@@ -14,7 +13,7 @@ function Navbar() {
       <div className="flex items-center flex-shrink-0 text-white mr-2 absolute hover:scale-110 duration-300"></div>
 
       <div className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[250px] overflow-y-auto text-center bg-gray-600">
-        <Link to="/Kalender">
+        <Link to="/">
           <div className="flex-shrink-0 text-white ml-3 p-6 mr-7 hover:scale-110 duration-300">
             <div className="font-semibold text-xl tracking-tight">
               <div className="type-logo text-4xl tracking-normal font-bold hover:tracking-wide duration-200"></div>
@@ -54,9 +53,6 @@ function Navbar() {
         <nav className=" mt-5 pr-[90px]">
           <div className="absolute bottom-20 left-0   ">
             <div className="text-sm "></div>
-            <div>
-              <Arkiv />
-            </div>
             <div>
               <LoginButton></LoginButton>
             </div>

@@ -28,13 +28,7 @@ function LoginFB() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-0  sm:p-12">
-      <div className="flex-shrink-0 text-white ml-3 p-6 mr-7 hover:scale-110 duration-300">
-        <div className="font-semibold text-xl tracking-tight">
-          <div className="type-logo text-4xl tracking-normal font-bold hover:tracking-wide duration-200"></div>
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-gray-100 p-0 sm:p-12 flex justify-center">
       <div className="fixed border-x-5 box-border w-[1000px] container mx-[250px]">
         <div className="auth">
           {error && <div className="auth__error">{error}</div>}

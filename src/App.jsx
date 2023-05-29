@@ -16,6 +16,8 @@ import { PrivateRoute } from "./context/PrivateRoute";
 import { useMsalAuthentication, useMsal } from "@azure/msal-react";
 import { InteractionType } from "@azure/msal-browser";
 import { loginRequest } from "./authConfig";
+import EndrePass from "./components/Profil/EndrePass";
+import ByttNavn from "./components/Profil/EndreNavn";
 
 function App() {
   useMsalAuthentication(InteractionType.Redirect, loginRequest);
@@ -76,6 +78,22 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Profil />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/EndrePassord"
+                element={
+                  <PrivateRoute>
+                    <EndrePass />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/EndrePassord"
+                element={
+                  <PrivateRoute>
+                    <ByttNavn />
                   </PrivateRoute>
                 }
               />

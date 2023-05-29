@@ -9,7 +9,7 @@ function Home() {
       <div className=" flex justify-center items-center xl:pt-50 lg:pt-40 md:pt-30">
         <div className="flex flex-wrap gap-52">
           <Link to="/Kalender">
-            <div className=" h-80 w-96 bg-home-100 opacity-70 rounded-xl  border-gray-500 cursor-pointer hover:scale-110 duration-300 hover:shadow-lg overflow-hidden group">
+            <div className=" h-80 w-96 bg-red-600 hover:bg-red-500 opacity-70 rounded-xl  border-gray-500 cursor-pointer hover:scale-110 duration-300 hover:shadow-lg overflow-hidden group">
               <div className="flex justify-center pt-10 opacity-50 hover:opacity-100 duration-700 hover:pt-2 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@ function Home() {
             </div>
           </Link>
           <Link to="/verify-application">
-            <div className=" h-80 w-96 bg-home-100 opacity-70 rounded-xl  border-gray-500 cursor-pointer hover:scale-110 duration-300 hover:shadow-lg  overflow-hidden group">
+            <div className=" h-80 w-96 bg-red-600 hover:bg-red-500 opacity-70 rounded-xl  border-gray-500 cursor-pointer hover:scale-110 duration-300 hover:shadow-lg  overflow-hidden group">
               <div className="flex justify-center pt-10 opacity-50 hover:opacity-100 duration-700 hover:pt-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
