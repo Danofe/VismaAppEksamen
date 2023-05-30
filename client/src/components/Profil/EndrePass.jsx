@@ -110,6 +110,7 @@ function EndrePass() {
                   onChange={(e) => setBekreftPassord(e.target.value)}
                 />
               </div>
+
               <button
                 type="submit"
                 onClick={byttPassord}
