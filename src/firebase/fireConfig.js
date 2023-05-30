@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection } from "firebase/firestore";
+require("dotenv").config();
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
