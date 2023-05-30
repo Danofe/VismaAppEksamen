@@ -10,9 +10,9 @@ export const useAuthConfigData = () => {
 //skrevet av Daniel
 export const msalConfig = {
   auth: {
-    clientId: process.env.CLIENT_ID,
-    authority: process.env.AUTHORITY_ID,
-    redirectUri: process.env.REDIRECT_URI,
+    clientId: process.env.REACT_APP_CLIENT_ID,
+    authority: process.env.REACT_APP_AUTHORITY_ID,
+    redirectUri: process.env.REACT_APP_REDIRECT_URI,
   },
   cache: {
     cacheLocation: "sessionStorage",
@@ -35,9 +35,9 @@ export const loginRequest = {
 };
 
 export const graphConfig = {
-  graphMeEndpoint: process.env.GRAPH_ME_ID,
-  clientSecret: process.env.CLIENT_SECRET,
-  tenantId: process.env.TENANT_ID,
+  graphMeEndpoint: process.env.REACT_APP_GRAPH_ME_ID,
+  clientSecret: process.env.REACT_APP_CLIENT_SECRET,
+  tenantId: process.env.REACT_APP_TENANT_ID,
 };
 
 //skrevet av Sindre
