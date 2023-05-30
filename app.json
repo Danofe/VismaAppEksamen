@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "predeploy": "cd client && npm run build"
+    "predeploy": "npm run build"
   }
 }
