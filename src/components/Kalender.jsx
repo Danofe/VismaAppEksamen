@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useMsal } from "@azure/msal-react";
-import { addDoc, getDocs } from "firebase/firestore";
+import { addDoc, getDocs, getDoc } from "firebase/firestore";
 import dateFormat from "dateformat";
-import { dbKalender, dbConfig } from "../firebase/fireConfig";
+import { dbKalender, dbConfig, db } from "../firebase/fireConfig";
+import { updateDoc, deleteDoc, doc, collection } from "firebase/firestore";
 
 function Kalender() {
   const { instance, accounts } = useMsal();
@@ -12,8 +13,9 @@ function Kalender() {
     startTime: "",
     endTime: "",
     location: "",
-    attendees: [""],
+    attendees: "",
     recipient: "",
+    beskrivelse: "",
   });
   const [success, setSuccess] = useState(false);
 
@@ -32,7 +34,7 @@ function Kalender() {
   useEffect(() => {
     getDocs(dbKalender).then((snapshot) => {
       snapshot.docs.forEach((doc) => {
-        kalenderKø.push({ ...doc.data() });
+        kalenderKø.push({ ...doc.data(), id: doc.id });
       });
       console.log(kalenderKø);
       setData(kalenderKø);
@@ -63,6 +65,7 @@ function Kalender() {
   const handleChange2 = (event) => {
     console.log(event.target.value);
     const valgtAppId = event.target.value;
+
     const valgtApp = applications.find((app) => app.Name === valgtAppId);
     if (!valgtApp) {
       console.error("fant ikke applikasjon");
@@ -72,6 +75,38 @@ function Kalender() {
     setSelectedApplication(valgtApp);
     console.log(selectedApplication);
     console.log(selectedApplication.TenantID);
+  };
+
+  const handleChange3 = (event) => {
+    const objectID = event.target.value;
+    console.log(objectID);
+
+    const dokumentRef = doc(collection(db, "Kalender"), objectID);
+
+    console.log(dokumentRef);
+
+    deleteDoc(dokumentRef)
+      .then(() => {
+        console.log("Document successfully deleted!");
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  };
+
+  const handleChange4 = (event) => {
+    const objectID = event.target.value;
+
+    const dokument = doc(collection(db, "Kalender"), objectID);
+    updateDoc(dokument, {
+      Status: "ferdig",
+    })
+      .then(() => {
+        console.log(objectID + "Har blitt gjort om til ferdig");
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
   };
 
   const handleSubmit = async (event) => {
@@ -89,6 +124,7 @@ function Kalender() {
       Sted: formData.location,
       attendees: formData.attendees,
       Mottaker: formData.recipient,
+      Beskrivelse: formData.beskrivelse,
       Status: "venter",
       //Config: hente config
       //Bruker: hente bruker
@@ -105,8 +141,8 @@ function Kalender() {
     const accessToken = tokenResponse.data.token;
 
     try {
-      const response = await axios.post(
-        `https://graph.microsoft.com/v1.0/users/${formData.recipient}/calendars/events`,
+      const response = await axios.get(
+        `https://graph.microsoft.com/v1.0/users/${formData.recipient}/events`,
         {
           subject: formData.title,
           start: {
@@ -120,29 +156,32 @@ function Kalender() {
           location: {
             displayName: formData.location,
           },
-          attendees: {
-            emailAddress: {
-              address: formData.recipient,
+          attendees: [
+            {
+              emailAddress: {
+                address: formData.recipient,
+              },
             },
-          },
+          ],
 
           body: {
             contentType: "HTML",
-            content: formData.description,
+            content: formData.beskrivelse,
           },
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${tokenResponse.data.token}`,
             "Content-Type": "application/json",
           },
         }
       );
       console.log(response);
-
+      console.log(response.data);
       setSuccess(true);
     } catch (error) {
       console.error(error);
+      console.log(tokenResponse.data.token);
     }
   };
 
@@ -299,10 +338,11 @@ function Kalender() {
             <div className="relative mt-5 z-0 w-full mb-5">
               <input
                 type="text"
-                name="Description"
-                id="Description"
+                name="beskrivelse"
+                id="beskrivelse"
                 placeholder=" "
                 required
+                value={formData.beskrivelse}
                 onChange={handleChange}
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               />
@@ -312,9 +352,6 @@ function Kalender() {
               >
                 Beskrivelse
               </label>
-              <span className="text-sm text-red-600 hidden" id="error">
-                Beskrivelse er påkrevd, OBS! Ikke sensitiv infomasjon
-              </span>
             </div>
 
             <input
@@ -358,19 +395,31 @@ function Kalender() {
                       <li>Mottaker: {item.Mottaker}</li>
                       <li>
                         Fra:{" "}
-                        {dateFormat(item.fra, "dddd, mmmm dS, yyyy, h:MM TT")}
+                        {dateFormat(item.Fra, "dddd, mmmm dS, yyyy, h:MM TT")}
                       </li>
                       <li>
                         Til:{" "}
-                        {dateFormat(item.til, "dddd, mmmm dS, yyyy, h:MM TT")}
+                        {dateFormat(item.Til, "dddd, mmmm dS, yyyy, h:MM TT")}
                       </li>
                       <li>Status: {item.Status}</li>
                       <div className="flex justify-between pt-3">
                         <div className="bg-red-500 rounded-md  text-white hover:scale-105 hover:bg-red-400 hover:shadow-lg focus:outline-none font-normal">
-                          <button className="p-1 pl-4 pr-4 ">Send</button>
+                          <button
+                            className="p-1 pl-4 pr-4"
+                            value={item.id}
+                            onClick={handleChange4}
+                          >
+                            Send
+                          </button>
                         </div>
                         <div className="bg-red-500 rounded-md text-white hover:scale-105 hover:bg-red-400 hover:shadow-lg focus:outline-none font-normal">
-                          <button className="p-1 pl-4 pr-4 ">Fjern</button>
+                          <button
+                            className="p-1 pl-4 pr-4 "
+                            value={item.id}
+                            onClick={handleChange3}
+                          >
+                            Fjern
+                          </button>
                         </div>
                       </div>
                     </ul>

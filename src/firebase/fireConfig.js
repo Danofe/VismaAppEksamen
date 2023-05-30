@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection } from "firebase/firestore";
-import { getAuth } from 'firebase/auth';
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCPDnaH0H3zr1WOP6mtTH21DoLE_8__7PI",
@@ -13,9 +13,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore();
+export const db = getFirestore();
 export const dbKalender = collection(db, "Kalender");
-export const dbConfig = collection(db,"Config");
-export const dbTest = collection(db,"Test");
+export const dbConfig = collection(db, "Config");
+export const dbTest = collection(db, "Test");
 export const autentisering = getAuth(app);
 //Skrevet av: Oscar
