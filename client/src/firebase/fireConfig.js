@@ -3,13 +3,13 @@ import { getFirestore, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCPDnaH0H3zr1WOP6mtTH21DoLE_8__7PI",
-  authDomain: "kalendervisma.firebaseapp.com",
-  projectId: "kalendervisma",
-  storageBucket: "kalendervisma.appspot.com",
-  messagingSenderId: "446057597972",
-  appId: "1:446057597972:web:c1a4ad6b013cb3acc7eb01",
-  measurementId: "G-E4LFYJWHXZ",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MSG_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MES_ID,
 };
 
 const app = initializeApp(firebaseConfig);

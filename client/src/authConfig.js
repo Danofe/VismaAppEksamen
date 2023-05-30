@@ -10,10 +10,9 @@ export const useAuthConfigData = () => {
 //skrevet av Daniel
 export const msalConfig = {
   auth: {
-    clientId: "63ff6245-38e3-4eba-82ee-35504d8f0983",
-    authority:
-      "https://login.microsoftonline.com/fac82b5d-ba5f-4225-aaa3-5348b463b4f3",
-    redirectUri: "http://localhost:3000/",
+    clientId: process.env.CLIENT_ID,
+    authority: process.env.AUTHORITY_ID,
+    redirectUri: process.env.REDIRECT_URI,
   },
   cache: {
     cacheLocation: "sessionStorage",
@@ -36,9 +35,9 @@ export const loginRequest = {
 };
 
 export const graphConfig = {
-  graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
-  clientSecret: "~ZN8Q~KoImnXaAoeRbRT2apGHToqIUJlKjuciby2",
-  tenantId: "fac82b5d-ba5f-4225-aaa3-5348b463b4f3",
+  graphMeEndpoint: process.env.GRAPH_ME_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  tenantId: process.env.TENANT_ID,
 };
 
 //skrevet av Sindre
