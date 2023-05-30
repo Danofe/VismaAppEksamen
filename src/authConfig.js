@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+require("dotenv").config();
 import { useAuthContext } from "./context/authContext";
 
 //Hook for å få tak i authentication config dataen fra context.
