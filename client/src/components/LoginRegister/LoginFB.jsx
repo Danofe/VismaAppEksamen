@@ -99,7 +99,7 @@ function LoginFB() {
                   <div className="text-center">
                     <a
                       className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                      href="http://localhost:3000/Registrer"
+                      href="/Registrer"
                     >
                       Har du ikke bruker? Registrer deg her!
                     </a>

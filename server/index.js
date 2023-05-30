@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 const axios = require("axios");
 
 const app = express();
@@ -54,6 +55,18 @@ app.post("/api/verify", async (req, res) => {
     console.error("Error verifying application:", error.response.data);
     res.status(500).json({ error: "Failed to verify the application" });
   }
+});
+
+//Render react appen
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "../client/build/index.html", function (err) {
+    if (err) {
+      // return res.status(err.status).end();
+      return res.status(404).end();
+    } else {
+      return res.status(200).end();
+    }
+  });
 });
 
 //Starter serveren

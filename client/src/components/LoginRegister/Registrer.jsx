@@ -132,7 +132,7 @@ function Register() {
                   <div className="text-center">
                     <a
                       className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                      href="http://localhost:3000/Login"
+                      href="/Login"
                     >
                       Har du allerede en bruker? Logg inn!
                     </a>

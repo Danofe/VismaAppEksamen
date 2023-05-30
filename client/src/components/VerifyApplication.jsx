@@ -58,17 +58,14 @@ const VerifyApplication = () => {
 
     try {
       // Får tak i access token fra backend server
-      const tokenResponse = await axios.post(
-        "http://localhost:4000/api/getToken",
-        {
-          tenantId,
-          applicationId,
-          clientSecret,
-        }
-      );
+      const tokenResponse = await axios.post("/api/getToken", {
+        tenantId,
+        applicationId,
+        clientSecret,
+      });
 
       //Deretter, send token til /api/verify routen
-      const response = await axios.post("http://localhost:4000/api/verify", {
+      const response = await axios.post("/api/verify", {
         token: tokenResponse.data.token,
       });
 

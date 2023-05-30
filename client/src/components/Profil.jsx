@@ -54,14 +54,14 @@ function Profil() {
           <div className="text-center">
             <a
               className="font-2xl inline-block  text-blue-500  hover:text-blue-800"
-              href="http://localhost:3000/EndrePassord"
+              href="/EndrePassord"
             >
               Endre passord
             </a>
             <div></div>
             <a
               className="font-2xl inline-block text-blue-500  hover:text-blue-800"
-              href="http://localhost:3000/EndreBrukernavn"
+              href="/EndreBrukernavn"
             >
               Endre brukernavn
             </a>
