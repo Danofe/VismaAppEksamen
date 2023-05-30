@@ -8,7 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(__dirname + "/../client/build"));
 
 //Route for å få tak i access token fra Microsoft OAuth2 endpoint
 app.post("/api/getToken", async (req, res) => {
@@ -55,18 +54,6 @@ app.post("/api/verify", async (req, res) => {
     console.error("Error verifying application:", error.response.data);
     res.status(500).json({ error: "Failed to verify the application" });
   }
-});
-
-//
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "../client/build/index.html", function (err) {
-    if (err) {
-      // return res.status(err.status).end();
-      return res.status(404).end();
-    } else {
-      return res.status(200).end();
-    }
-  });
 });
 
 //Starter serveren
