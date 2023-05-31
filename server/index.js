@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const axios = require("axios");
-
+const PORT = process.env.PORT;
 const app = express();
 
 //Enabler cors og json body parsing
@@ -70,7 +70,7 @@ app.get("*", (req, res) => {
 });
 
 //Starter serveren
-const PORT = process.env.PORT;
+
 app.listen(PORT, () => {
   console.log(`Server startet på port ${PORT}`);
 });
