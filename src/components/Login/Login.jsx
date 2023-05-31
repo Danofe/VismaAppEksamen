@@ -15,7 +15,7 @@ function Login() {
           className="ml-auto text-xl bg-gray-600 text-white font-bold py-1 px-3 rounded hover:shadow-md hover:bg-rose-600 duration-200 hover:scale-110"
           onClick={behandlein}
         >
-          Logg ut
+          Logg inn
         </button>
       </div>
     </div>
