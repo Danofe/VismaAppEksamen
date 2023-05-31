@@ -1,7 +1,8 @@
+//Skrevet av: Oscar
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, where, query } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-
+//Kobler til firebase gjennom API
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -13,9 +14,11 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+//Referanse til databasen
 export const db = getFirestore();
+//Referanse til collection Kalender
 export const dbKalender = collection(db, "Kalender");
+//Referanse til collection Config
 export const dbConfig = collection(db, "Config");
-export const dbTest = collection(db, "Test");
+//Autentiserings variabel som brukes i diverse firebase metoder;
 export const autentisering = getAuth(app);
-//Skrevet av: Oscar

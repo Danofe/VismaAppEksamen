@@ -2,6 +2,9 @@ import { updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { useUserContext } from "../../context/userContext";
 
+//Funksjon for å bytte navn, updateProfile er en firebase funksjon.
+//diverse console logs for våres skyld, så vi kan se om det funker
+//setSucess endrer på useStaten, og når sucess er true, vil melding om at navnet har blitt byttet dukke opp
 function ByttNavn() {
   const [navn, setNavn] = useState("");
   const [success, setSucess] = useState(false);
@@ -13,8 +16,6 @@ function ByttNavn() {
       displayName: navn,
     })
       .then(() => {
-        console.log("Fikset");
-        console.log(user.user.displayName);
         setSucess(true);
       })
       .catch(() => {
@@ -26,6 +27,7 @@ function ByttNavn() {
     <div className="min-h-screen  bg-gray-100 p-0  sm:p-12 flex justify-center">
       <div className="relative top-14  left-0 right-0 text-center p-0  sm:p-10">
         <div className="box-border w-[350px] h-) container mx-[300px]">
+          {/* Form for inputs og som kjører byttBrukernavn på submit, som er knappen under  */}
           <div
             onSubmit={byttBrukernavn}
             name="registration_form"

@@ -1,11 +1,13 @@
+//Skrevet Av Daniel, Oscar og Sindre Styling av komponentene er gjort av Turid og Andrea
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { addDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { addDoc, getDocs } from "firebase/firestore";
 import dateFormat from "dateformat";
 import { dbKalender, dbConfig, db } from "../firebase/fireConfig";
 import { updateDoc, deleteDoc, doc, collection } from "firebase/firestore";
 
 function Kalender() {
+  //Setter opp useState for form inputs
   const [formData, setFormData] = useState({
     title: "",
     startTime: "",
@@ -30,13 +32,14 @@ function Kalender() {
   let kalenderKø = [];
 
   //Henter alle kalender events fra database
-
   useEffect(() => {
     getDocs(dbKalender).then((snapshot) => {
       snapshot.docs.forEach((doc) => {
+        //setter doc.id som id for hvert objekt og legger det i en array
         kalenderKø.push({ ...doc.data(), id: doc.id });
       });
       console.log(kalenderKø);
+      //setter data til å være arrayen med alle objektene
       setData(kalenderKø);
     });
   }, []);
@@ -45,16 +48,20 @@ function Kalender() {
   const getApplications = async () => {
     getDocs(dbConfig).then((snapshot) => {
       snapshot.docs.map((doc) => {
+        //setter doc objecter i en array
         app.push({ ...doc.data() });
       });
+      //setter applications til å være arrayen med alle objektene
       setApplications(app);
     });
   };
 
+  //Henter alle applications fra database ved hjelp av useEffect
   useEffect(() => {
     getApplications();
   }, []);
 
+  //Submit handler for formen som legger info i formdata
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -62,42 +69,47 @@ function Kalender() {
     });
   };
 
+  //Submit for valgt application
   const handleChange2 = (event) => {
     console.log(event.target.value);
     const valgtAppId = event.target.value;
 
+    //Finner valgt application fra applications arrayen
     const valgtApp = applications.find((app) => app.Name === valgtAppId);
     if (!valgtApp) {
       console.error("fant ikke applikasjon");
       return;
     }
-
+    //setter valgt application til å være valgtApp
     setSelectedApplication(valgtApp);
-    console.log(selectedApplication);
-    console.log(selectedApplication.TenantID);
   };
 
+  //Submit for å slette event
   const handleChange3 = (event) => {
     const objectID = event.target.value;
     console.log(objectID);
 
+    //Finner event fra data arrayen med objectID(=doc.id)
     const dokumentRef = doc(collection(db, "Kalender"), objectID);
 
     console.log(dokumentRef);
 
+    //Sletter event fra database
     deleteDoc(dokumentRef)
       .then(() => {
-        console.log("Document successfully deleted!");
+        console.log("slettet");
       })
       .catch((error) => {
-        console.error("Error removing document: ", error);
+        console.error("Error med fjerning: ", error);
       });
   };
 
+  //Submit for å endre status på event
   const handleChange4 = (event) => {
     const objectID = event.target.value;
-
     const dokument = doc(collection(db, "Kalender"), objectID);
+
+    //Endrer status på event til "ferdig"
     updateDoc(dokument, {
       Status: "ferdig",
     })
@@ -105,18 +117,21 @@ function Kalender() {
         console.log(objectID + "Har blitt gjort om til ferdig");
       })
       .catch((error) => {
-        console.log("Error getting document:", error);
+        console.log("Error med oppdater:", error);
       });
   };
 
+  //Submit for formen som legger til event i database
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    //Sjekker om det er valgt en application
     if (!selectedApplication) {
       console.error("ingen applikasjon er valgt");
       return;
     }
 
+    //Legger til event i database
     addDoc(dbKalender, {
       Tittel: formData.title,
       Fra: formData.startTime,
@@ -130,13 +145,14 @@ function Kalender() {
       //Bruker: hente bruker
     });
 
+    //Henter token fra server og azure
     const tokenResponse = await axios.post("/api/getToken", {
       tenantId: selectedApplication.TenantID,
       applicationId: selectedApplication.ApplicationID,
       clientSecret: selectedApplication.Clientsecret,
     });
-    const accessToken = tokenResponse.data.token;
 
+    //Legger til event i kalenderen til mottaker
     try {
       const response = await axios.get(
         `https://graph.microsoft.com/v1.0/users/${formData.recipient}/events`,
@@ -266,6 +282,7 @@ function Kalender() {
                 onChange={handleChange2}
                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               >
+                {/* Mapper alle applications */}
                 {applications.map((app) => (
                   <option key={app.appId} value={app.Name}>
                     {app.Name}
@@ -377,6 +394,7 @@ function Kalender() {
               </p>
             )}
             <>
+              {/* Setter alle events fra kalenderen inn og rendrer for hvert objekt / event */}
               {data.map((item) => (
                 <div
                   key={item.id}

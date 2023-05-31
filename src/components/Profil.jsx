@@ -1,11 +1,15 @@
+//Skrevet av Daniel, Styling av Andrea og Turid
 import { React, useState } from "react";
 import { useUserContext } from "../context/userContext";
 
 function Profil() {
+  //Bruker useState for å hente ut brukernavn og profilbilde
   const [brukerNavn, setBrukerNavn] = useState("");
   const [ProfilBilde, setProfilBilde] = useState("");
+  //useUserContext henter ut bruker
   const user = useUserContext();
 
+  //Bruker setTimeout for å vente på at bruker skal bli hentet ut
   setTimeout(() => {
     if (user !== null) {
       if (user.user.displayName !== null) {
@@ -26,6 +30,7 @@ function Profil() {
           <div className="relative">
             <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-[-10px] -mt-24 flex items-center justify-center text-gray-600">
               <div className="absolute -m-44">
+                {/* Henter Profilbilde fra useState */}
                 <img
                   src={`${ProfilBilde}`}
                   className="shadow-md rounded-full h-auto w-40"
@@ -41,12 +46,14 @@ function Profil() {
             className="text-4xl font-medium text-gray-700"
           />
           <p className=" text-gray-600 md-4 mt-3">Bruker ID</p>
+          {/* Henter brukernavn fra useState vis ingen profilBilde */}
           <p>{`${brukerNavn}`}</p>
           <p className="mt-8 text-gray-500">Student / Mail</p>
           <p className="mt-2 text-gray-500">Universitetet i Sør-Øst Norge</p>
         </div>
         <div className="mt-9 mb-9  justify-center">
           <div className="text-center">
+            {/* Lenker til endre passord og brukernavn */}
             <a
               className="font-2xl inline-block  text-blue-500  hover:text-blue-800"
               href="/EndrePassord"

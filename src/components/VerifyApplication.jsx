@@ -1,9 +1,10 @@
+//Skrevet av Sindre og Oscar, Styling Turid og Andrea
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuthContext } from "../context/authContext";
 import { dbConfig } from "../firebase/fireConfig";
 import { addDoc, getDocs } from "firebase/firestore";
-//Skrevet av Sindre
 //State hooks for form inputs og en for error meldinger
 const VerifyApplication = () => {
   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ const VerifyApplication = () => {
   const [data, setData] = useState([]);
   const [selectedId, setSelectedId] = useState("");
 
+  //Henter data fra firebase for config
   const fetchBrukerData = async () => {
     const snapshot = await getDocs(dbConfig);
     const configKø = snapshot.docs.map((doc) => ({
@@ -28,6 +30,7 @@ const VerifyApplication = () => {
     fetchBrukerData();
   }, []);
 
+  //Henter data fra firebase for config
   const hentData = async (event) => {
     const newSelectedId = event.target.value;
     const selectedUser = data.find((user) => user.id === newSelectedId);
@@ -72,7 +75,7 @@ const VerifyApplication = () => {
       //Hvis verification er suksessful, så oppdaterer authentication konfigurasjonen seg.
       if (response.data.message === "Verification successful!") {
         updateAuthConfig(tenantId, clientSecret, applicationId);
-        setErrorMessage("Verification funker!");
+        setErrorMessage("Verification er utført suksessfullt!");
       } else {
         console.error("Invalid tenantId, clientSecret, name, or applicationId");
         setErrorMessage(
@@ -101,7 +104,7 @@ const VerifyApplication = () => {
 
         <div className="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
           <h1 className="text-2xl font-bold mb-8">Autentiser bruker</h1>
-
+          {/* form for application */}
           <form onSubmit={handleSubmit}>
             <div className="relative z-0 w-full mb-5">
               <input
@@ -186,6 +189,7 @@ const VerifyApplication = () => {
             />
 
             <p className="text-red-500 mt-3">{errorMessage}</p>
+            {/* form for configs som hentes fra database */}
             <select
               name="select"
               id="databaseConfig"

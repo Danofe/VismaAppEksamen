@@ -1,19 +1,21 @@
+//skrevet av Daniel og stylet av Turid og Andrea
 import { React } from "react";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { autentisering } from "../../firebase/fireConfig";
 
+//Funksjon for logout
 function Logout() {
   const goto = useNavigate();
 
+  // Sender bruker til login siden og logger bruker ut
   const behandleUt = () => {
     signOut(autentisering)
       .then(() => {
-        console.log("Sign-out successful.");
         goto("/Login");
       })
       .catch((error) => {
-        error("An error happened.");
+        error("Oi en error oppstod!!!");
       });
   };
 

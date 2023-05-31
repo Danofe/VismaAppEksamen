@@ -1,9 +1,11 @@
+//Skrevet av Daniel og stylet av Turid og Andrea
 import React from "react";
 import { useNavigate } from "react-router";
 
 function Login() {
   const goto = useNavigate();
 
+  // Sender bruker til login siden
   const behandlein = () => {
     goto("/Login");
   };

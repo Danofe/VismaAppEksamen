@@ -1,3 +1,4 @@
+//Skrevet av Oscar. Styling av komponentene er gjort av Turid og Andrea
 import React from "react";
 import { useState } from "react";
 import {
@@ -8,14 +9,15 @@ import {
 import { useUserContext } from "../../context/userContext";
 
 function EndrePass() {
+  //UseStates for input feltene og success for å vite om melding skal vises
   const [passord, setPassord] = useState("");
   const [nyttPassord, setNyttPassord] = useState("");
   const [bekreftPassord, setBekreftPassord] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-
+  //For å hente nåværende bruker
   const user = useUserContext();
-
+  //Metode som sjekker at det nye og bekreft passord er like
   const passordValidering = () => {
     let gyldig = true;
     if (nyttPassord !== "" && bekreftPassord !== "") {
@@ -27,14 +29,17 @@ function EndrePass() {
     return gyldig;
   };
 
+  //Metode for å bytte passord
   const byttPassord = (e) => {
     e.preventDefault();
     setError("");
+    //Autentiserer bruker på nytt, slik at passordet kan endres
     if (passordValidering()) {
       const credential = EmailAuthProvider.credential(user.user.email, passord);
       reauthenticateWithCredential(credential).then(() => {
         console.log("auth funker" + credential);
       });
+      //Oppdaterer passordet
       updatePassword(user.user, nyttPassord)
         .then(() => {
           setSuccess(true);
@@ -44,7 +49,6 @@ function EndrePass() {
           console.log("Brukeren ble ikke logget inn");
         });
     }
-    console.log(user.user.email);
     setPassord("");
     setNyttPassord("");
     setBekreftPassord("");
@@ -69,7 +73,7 @@ function EndrePass() {
                   ></label>
                 </div>
               </div>
-
+              {/* Forskjellige inputs under som endrer useStates  */}
               <div>
                 <input
                   className=" w- rounded-b bg-[#eee] mx-0 my-2 px-[15px] py-3 border-[none]"
@@ -111,7 +115,7 @@ function EndrePass() {
                   onChange={(e) => setBekreftPassord(e.target.value)}
                 />
               </div>
-
+              {/* Knapp som bruker metoden byttPassord når den trykkes  */}
               <button
                 type="submit"
                 onClick={byttPassord}
@@ -119,7 +123,7 @@ function EndrePass() {
               >
                 Bytt passord
               </button>
-
+              {/* Viser melding når passordet har blitt endret, utifra om success er true eller false  */}
               {success && <h1>Passordet har blitt endret!</h1>}
             </div>
           </div>

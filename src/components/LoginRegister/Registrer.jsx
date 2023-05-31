@@ -1,8 +1,9 @@
+//Skrevet av Oscar. Styling av komponentene er gjort av Turid og Andrea
 import { autentisering } from "../../firebase/fireConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+//Funksjonen for å registrere en ny bruker gjennom firebase
 function Register() {
   const [epost, setEpost] = useState("");
   const [passord, setPassord] = useState("");
@@ -10,7 +11,7 @@ function Register() {
   const [error, setError] = useState("");
 
   const goto = useNavigate();
-
+  //Metode for å sjekke at passord og bekreft passord har like verdier. Returner true eller false
   const passordValidering = () => {
     let gyldig = true;
     if (passord !== "" && bekreftPassord !== "") {
@@ -21,18 +22,18 @@ function Register() {
     }
     return gyldig;
   };
-
+  //Metode for å registrere via firebase
   const registrering = (e) => {
     e.preventDefault();
     setError("");
     if (passordValidering()) {
       createUserWithEmailAndPassword(autentisering, epost, passord)
         .then((res) => {
-          console.log(res.user);
           goto("/login");
         })
         .catch((err) => setError(err.message));
     }
+    //Setter verdiene tilbake til blank
     setEpost("");
     setPassord("");
     setBekreftPassord("");
@@ -42,6 +43,7 @@ function Register() {
     <div className="min-h-screen bg-gray-100 p-0 sm:p-12">
       <div className="fixed border-x-5 box-border w-[1000px] container mx-[250px]">
         <div className="auth">
+          {/* For å vise error melding */}
           {error && <div className="auth__error">{error}</div>}
           <div className="flex bg-white shadow-lg border justify-center rounded-[10px] px-2 my-12">
             <div className="w-full lg:w-11/12 flex">
@@ -65,7 +67,7 @@ function Register() {
                   Lag en bruker!
                 </h3>
                 <p className="text-center">Registrer deg her!</p>
-
+                {/* Form med inputs, som submitter på knappen under, og bruker metoden registrering på submit */}
                 <form
                   onSubmit={registrering}
                   name="registration_form"

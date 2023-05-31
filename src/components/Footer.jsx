@@ -1,3 +1,4 @@
+//Skrevet og stylet av Turid og Andrea
 import React from "react";
 
 function Footer() {

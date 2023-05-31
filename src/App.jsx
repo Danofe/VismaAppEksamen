@@ -1,3 +1,6 @@
+//Skrevet av Daniel
+
+//Importer komponenter og andre imports
 import Kalender from "./components/Kalender";
 import VerifyApplication from "./components/VerifyApplication";
 import Home from "./components/Home";
@@ -18,34 +21,46 @@ import { loginRequest } from "./authConfig";
 import EndrePass from "./components/Profil/EndrePass";
 import ByttNavn from "./components/Profil/EndreNavn";
 
+//App funksjonen
 function App() {
+  //Azure login funksjon
   useMsalAuthentication(InteractionType.Redirect, loginRequest);
 
+  //State hook for Azure brukernavn
   const [Azure, setAzure] = useState("");
 
+  //Render funksjon for Azure brukernavn
   function Render() {
+    //Henter brukernavn fra Azure
     const { accounts } = useMsal();
-
     try {
       const username = accounts[0].username;
       console.log(username);
+
+      //Setter brukernavn i state hook
       setAzure(username);
     } catch (e) {
       console.log(e);
     }
   }
 
+  //Kjører render funksjonen vis en account er logget inn i msal
   if (Azure !== "")
     return (
+      //Provider for contexter
       <AuthProvider>
         <UserProvider>
+          {/* Browser router for routing i appen */}
           <BrowserRouter>
             <Navbar />
+            {/* Routes for routing i appen */}
             <Routes>
+              {/* Route for login og register og en for auth for azure kobling/RedirectURI */}
               <Route path="/Registrer" element={<Register />} />
               <Route path="/Login" element={<LoginFB />} />
               <Route path="/auth" element={""} />
 
+              {/* Private routes for alle andre sider slik at ikke logget inn bruker kan komme inn. bruker PrivateRoute*/}
               <Route
                 path="/"
                 element={
@@ -105,6 +120,7 @@ function App() {
   else
     return (
       <>
+        {/* Render funksjonen kjøres vis bruker ikke er logget inn / mens siden kobles mot redirect*/}
         {Render()}
         <div>please wait...</div>{" "}
       </>

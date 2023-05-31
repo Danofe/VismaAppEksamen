@@ -1,3 +1,4 @@
+//Skrevet av Sindre og Daniel
 import { useEffect } from "react";
 import { useAuthContext } from "./context/authContext";
 
@@ -7,7 +8,7 @@ export const useAuthConfigData = () => {
   return authConfigData;
 };
 
-//skrevet av Daniel
+//Authentication config data for MSAL
 export const msalConfig = {
   auth: {
     clientId: process.env.REACT_APP_CLIENT_ID,
@@ -20,6 +21,7 @@ export const msalConfig = {
   },
 };
 
+//Authentication config data for MSAL login request / Scopes
 export const loginRequest = {
   scopes: [
     "User.Read",
@@ -34,13 +36,13 @@ export const loginRequest = {
   ],
 };
 
+//Authentication config data for MSAL Graph API
 export const graphConfig = {
   graphMeEndpoint: process.env.REACT_APP_GRAPH_ME_ID,
   clientSecret: process.env.REACT_APP_CLIENT_SECRET,
   tenantId: process.env.REACT_APP_TENANT_ID,
 };
 
-//skrevet av Sindre
 //Funksjon for å sette authentication config data
 export const setAuthConfigData = (authConfigData) => {
   msalConfig.auth.authority = authConfigData.tenantId

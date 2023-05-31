@@ -1,7 +1,9 @@
+//Skrevet av Andrea og Turid og stylet av Andrea og Turid
 import React from "react";
 import LoginButton from "./Login/csLogin";
 import { Link } from "react-router-dom";
 
+//Funksjonen som lager navigasjonsbaren
 function Navbar() {
   return (
     <div>
@@ -11,6 +13,7 @@ function Navbar() {
       />
       <div className="flex items-center flex-shrink-0 text-white mr-2 absolute hover:scale-110 duration-300"></div>
       <div className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[250px] overflow-y-auto text-center bg-gray-600">
+        {/*Linker alle elementer til routes */}
         <Link to="/">
           <div className="flex-shrink-0 text-white ml-3 p-6 mr-7 hover:scale-110 duration-300">
             <div className="font-semibold text-xl tracking-tight">
