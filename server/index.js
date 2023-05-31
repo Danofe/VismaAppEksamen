@@ -4,7 +4,6 @@ require("dotenv").config();
 const axios = require("axios");
 const PORT = process.env.PORT;
 const app = express();
-const path = require("path");
 
 //Enabler cors og json body parsing
 app.use(cors());
@@ -58,16 +57,13 @@ app.post("/api/verify", async (req, res) => {
   }
 });
 
+const path = require("path");
+app.use(express.static(path.join(__dirname, "..", "build")));
+app.use(express.static("public"));
+
 //Render react appen
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"), function (err) {
-    if (err) {
-      // return res.status(err.status).end();
-      return res.status(404).end();
-    } else {
-      return res.status(200).end();
-    }
-  });
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
 //Starter serveren
