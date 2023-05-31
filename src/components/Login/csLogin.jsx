@@ -10,7 +10,7 @@ function LoginButton() {
   const auth = getAuth();
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
+    if (user !== null) {
       setlogin(true);
     } else {
       setlogin(false);

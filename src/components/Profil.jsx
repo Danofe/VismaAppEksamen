@@ -1,26 +1,22 @@
 import { React, useState, useEffect } from "react";
 import { useUserContext } from "../context/userContext";
-import { useNavigate } from "react-router-dom";
+import e from "express";
 
 function Profil() {
   const [brukerNavn, setBrukerNavn] = useState("");
   const [ProfilBilde, setProfilBilde] = useState("");
   const user = useUserContext();
-  const goto = useNavigate();
-  const behandlePass = () => {
-    goto("/EndrePassord");
-  };
-  const behandleBrukernavn = () => {
-    goto("/EndreBrukernavn");
-  };
 
   setTimeout(() => {
-    if (user) {
-      setBrukerNavn(user.user.displayName);
-      setProfilBilde(user.user.photoURL);
+    if (user !== null) {
+      if (user.user.displayName !== null) {
+        setBrukerNavn(user.user.displayName);
+        setProfilBilde(user.user.photoURL);
+      } else {
+        setBrukerNavn("Ingen brukernavn");
+        setProfilBilde("https://i.imgur.com/1qZrFnq.png");
+      }
     }
-
-    console.log(user);
   }, 100);
 
   return (

@@ -1,14 +1,11 @@
-import { autentisering } from "../../firebase/fireConfig";
 import { updateProfile } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useUserContext } from "../../context/userContext";
 
 function ByttNavn() {
   const [navn, setNavn] = useState("");
   const [success, setSucess] = useState(false);
   const user = useUserContext();
-  const goto = useNavigate();
 
   const byttBrukernavn = (e) => {
     setNavn(e.target.value);
