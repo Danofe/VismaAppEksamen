@@ -20,6 +20,7 @@
     "dotenv": "^16.0.3",
     "dotenv-webpack": "^8.0.1",
     "firebase": "^9.17.1",
+    "net": "^1.0.2",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
