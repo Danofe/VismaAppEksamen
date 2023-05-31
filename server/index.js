@@ -70,7 +70,7 @@ app.get("*", (req, res) => {
 });
 
 //Starter serveren
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server startet på port ${PORT}`);
 });

@@ -14,7 +14,7 @@ function Profil() {
         setProfilBilde(user.user.photoURL);
       } else {
         setBrukerNavn("Ingen brukernavn");
-        setProfilBilde("https://i.imgur.com/1qZrFnq.png");
+        setProfilBilde("");
       }
     }
   }, 100);
