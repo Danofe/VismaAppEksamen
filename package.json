@@ -36,7 +36,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "cd server && node server.js",
+    "start": "cd server && node index.js",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
