@@ -59,7 +59,7 @@ app.post("/api/verify", async (req, res) => {
 
 //Render react appen
 app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/build/index.html", function (err) {
+  res.sendFile(__dirname + "../build/index.html", function (err) {
     if (err) {
       // return res.status(err.status).end();
       return res.status(404).end();
