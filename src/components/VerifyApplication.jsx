@@ -58,16 +58,22 @@ const VerifyApplication = () => {
 
     try {
       // Får tak i access token fra backend server
-      const tokenResponse = await axios.post("/api/getToken", {
-        tenantId,
-        applicationId,
-        clientSecret,
-      });
+      const tokenResponse = await axios.post(
+        "https://visma5client.herokuapp.com/api/getToken",
+        {
+          tenantId,
+          applicationId,
+          clientSecret,
+        }
+      );
 
       //Deretter, send token til /api/verify routen
-      const response = await axios.post("/api/verify", {
-        token: tokenResponse.data.token,
-      });
+      const response = await axios.post(
+        "https://visma5client.herokuapp.com/api/verify",
+        {
+          token: tokenResponse.data.token,
+        }
+      );
 
       //Hvis verification er suksessful, så oppdaterer authentication konfigurasjonen seg.
       if (response.data.message === "Verification successful!") {

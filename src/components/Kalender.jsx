@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { addDoc, getDocs } from "firebase/firestore";
+import { addDoc, getDocs, query, where } from "firebase/firestore";
 import dateFormat from "dateformat";
 import { dbKalender, dbConfig, db } from "../firebase/fireConfig";
 import { updateDoc, deleteDoc, doc, collection } from "firebase/firestore";
@@ -29,8 +29,10 @@ function Kalender() {
 
   let kalenderKø = [];
 
+  const kalenderventer = query(dbKalender, where("status", "==", "Venter"));
+
   useEffect(() => {
-    getDocs(dbKalender.where("Status", "==", "venter")).then((snapshot) => {
+    getDocs(kalenderventer).then((snapshot) => {
       snapshot.docs.forEach((doc) => {
         kalenderKø.push({ ...doc.data(), id: doc.id });
       });
@@ -128,11 +130,14 @@ function Kalender() {
       //Bruker: hente bruker
     });
 
-    const tokenResponse = await axios.post("/api/getToken", {
-      tenantId: selectedApplication.TenantID,
-      applicationId: selectedApplication.ApplicationID,
-      clientSecret: selectedApplication.Clientsecret,
-    });
+    const tokenResponse = await axios.post(
+      "https://visma5client.herokuapp.com/api/getToken",
+      {
+        tenantId: selectedApplication.TenantID,
+        applicationId: selectedApplication.ApplicationID,
+        clientSecret: selectedApplication.Clientsecret,
+      }
+    );
     const accessToken = tokenResponse.data.token;
 
     try {
