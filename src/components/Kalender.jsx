@@ -130,14 +130,11 @@ function Kalender() {
       //Bruker: hente bruker
     });
 
-    const tokenResponse = await axios.post(
-      "https://visma5client.herokuapp.com/api/getToken",
-      {
-        tenantId: selectedApplication.TenantID,
-        applicationId: selectedApplication.ApplicationID,
-        clientSecret: selectedApplication.Clientsecret,
-      }
-    );
+    const tokenResponse = await axios.post("/api/getToken", {
+      tenantId: selectedApplication.TenantID,
+      applicationId: selectedApplication.ApplicationID,
+      clientSecret: selectedApplication.Clientsecret,
+    });
     const accessToken = tokenResponse.data.token;
 
     try {
