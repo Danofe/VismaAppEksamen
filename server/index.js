@@ -5,6 +5,9 @@ const axios = require("axios");
 const PORT = process.env.PORT;
 const app = express();
 
+const path = require("path");
+app.use(express.static(path.join(__dirname, "..", "build")));
+
 //Enabler cors og json body parsing
 app.use(cors());
 app.use(express.json());
@@ -57,12 +60,8 @@ app.post("/api/verify", async (req, res) => {
   }
 });
 
-const path = require("path");
-app.use(express.static(path.join(__dirname, "..", "build")));
-app.use(express.static("public"));
-
 //Render react appen
-app.use((req, res, next) => {
+app.use("*", (req, res, next) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
