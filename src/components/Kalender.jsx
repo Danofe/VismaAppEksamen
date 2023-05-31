@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { addDoc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import dateFormat from "dateformat";
 import { dbKalender, dbConfig, db } from "../firebase/fireConfig";
 import { updateDoc, deleteDoc, doc, collection } from "firebase/firestore";
@@ -31,8 +31,10 @@ function Kalender() {
 
   //Henter alle kalender events fra database
 
+  const kalendervent = query(dbKalender, where("Status", "==", "venter"));
+
   useEffect(() => {
-    getDocs(dbKalender).then((snapshot) => {
+    onSnapshot(kalendervent).then((snapshot) => {
       snapshot.docs.forEach((doc) => {
         kalenderKø.push({ ...doc.data(), id: doc.id });
       });
