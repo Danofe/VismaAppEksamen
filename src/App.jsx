@@ -7,7 +7,6 @@ import Register from "./components/LoginRegister/Registrer";
 import LoginFB from "./components/LoginRegister/LoginFB";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import LoginPage from "./components/LoginPage/LoginPage";
 import { AuthProvider } from "./context/authContext";
 import { UserProvider } from "./context/userContext";
 import { useState } from "react";
@@ -43,7 +42,6 @@ function App() {
           <BrowserRouter>
             <Navbar />
             <Routes>
-              <Route path="/LoginPage" element={<LoginPage />} />
               <Route path="/Registrer" element={<Register />} />
               <Route path="/Login" element={<LoginFB />} />
               <Route path="/auth" element={""} />
