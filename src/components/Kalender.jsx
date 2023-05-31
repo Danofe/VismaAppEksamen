@@ -31,10 +31,8 @@ function Kalender() {
 
   //Henter alle kalender events fra database
 
-  const kalendervent = query(dbKalender, where("Status", "==", "venter"));
-
   useEffect(() => {
-    onSnapshot(kalendervent).then((snapshot) => {
+    getDocs(dbKalender).then((snapshot) => {
       snapshot.docs.forEach((doc) => {
         kalenderKø.push({ ...doc.data(), id: doc.id });
       });
