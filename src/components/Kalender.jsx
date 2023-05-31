@@ -29,16 +29,18 @@ function Kalender() {
 
   let kalenderKø = [];
 
-  const kalenderventer = query(dbKalender, where("status", "==", "Venter"));
+  //Henter alle kalender events fra database
 
   useEffect(() => {
-    getDocs(kalenderventer).then((snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        kalenderKø.push({ ...doc.data(), id: doc.id });
-      });
-      console.log(kalenderKø);
-      setData(kalenderKø);
-    });
+    getDocsquery(dbKalender, where("status", "==", "Venter")).then(
+      (snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          kalenderKø.push({ ...doc.data(), id: doc.id });
+        });
+        console.log(kalenderKø);
+        setData(kalenderKø);
+      }
+    );
   }, []);
 
   //Henter alle applications fra database
