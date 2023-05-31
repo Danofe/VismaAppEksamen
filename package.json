@@ -30,7 +30,9 @@
     "remixicon": "^2.5.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwind-typewriter": "^1.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
   },
   "scripts": {
     "dev": "react-scripts start",
