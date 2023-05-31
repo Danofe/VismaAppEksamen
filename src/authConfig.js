@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useAuthContext } from "./context/authContext";
 
 //Hook for å få tak i authentication config dataen fra context.
